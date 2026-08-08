@@ -695,9 +695,11 @@ button{cursor:pointer}
         grid-column:1;
         grid-row:1;
 
+        width:100%;
         min-width:0;
         text-align:right;
-    }
+        justify-self:stretch;
+    }    
 
     .brand > .logo{
         grid-column:2;
@@ -719,18 +721,32 @@ button{cursor:pointer}
         font-size:26px;
         white-space:nowrap;
     }
+    
 
     .brand p{
-        margin:4px 0 0;
+        display:block;
+        width:100%;
         max-width:100%;
-        font-size:9px;
+        margin:4px 0 0;
+        font-size:12px;
+        text-align:right;
+        white-space:nowrap;
     }
 
+    .brand > div:first-child > p:not(.greeting){
+    width:max-content;
+    max-width:100%;
+    margin-left:auto;
+    margin-right:0;
+    text-align:right;
+    white-space:nowrap;
+}
     .brand .greeting{
         width:100%;
         max-width:100%;
         line-height:1.5;
         text-align:right;
+        font-size:13px;
     }
 
     .mobile-day-navigation{
@@ -972,11 +988,6 @@ button{cursor:pointer}
     .app{padding:9px}
 
     .brand h1{font-size:24px}
-
-    .brand p{
-        max-width:155px;
-        font-size:8px;
-    }
 
     .mobile-day-navigation button{
         width:35px;
