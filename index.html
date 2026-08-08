@@ -487,6 +487,66 @@ button{cursor:pointer}
 }
 
 .drawer-list{padding:6px 11px}
+    /* =====================================================
+   SETTINGS
+   ===================================================== */
+
+.settings-content{
+    padding:12px;
+}
+
+.settings-content label{
+    display:block;
+    margin-bottom:6px;
+    color:var(--muted);
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.settings-content input{
+    width:100%;
+    height:38px;
+    padding:0 10px;
+
+    border:1px solid var(--border);
+    border-radius:10px;
+
+    outline:none;
+
+    background:var(--cream);
+    color:var(--text);
+
+    font-size:10px;
+}
+
+.settings-content input:focus{
+    border-color:var(--pink-dark);
+}
+
+.settings-button,
+.reset-button{
+    width:100%;
+    height:36px;
+    margin-top:8px;
+
+    border-radius:10px;
+
+    font-size:9px;
+    font-weight:700;
+}
+
+.settings-button{
+    border:0;
+    background:var(--mint-light);
+    color:var(--mint-dark);
+}
+
+.reset-button{
+    border:1px solid #e8c9c9;
+    background:#fff4f4;
+    color:#b56f6f;
+}
 
 @media(max-width:768px){
 
@@ -1382,7 +1442,139 @@ function saveData(){
         JSON.stringify(data)
     );
 }
+    /* =====================================================
+   SETTINGS
+   ===================================================== */
 
+const userNameInput =
+    document.getElementById("userName");
+
+const saveNameButton =
+    document.getElementById("saveName");
+
+const resetDataButton =
+    document.getElementById("resetData");
+
+
+/* Load saved name */
+
+if(userNameInput){
+
+    userNameInput.value =
+        data.userName || "";
+
+}
+
+
+/* Save name */
+
+if(saveNameButton){
+
+    saveNameButton.addEventListener(
+        "click",
+        ()=>{
+
+            const name =
+                userNameInput.value.trim();
+
+            if(!name){
+
+                alert(
+                    "Please enter your name first."
+                );
+
+                return;
+            }
+
+            data.userName = name;
+
+            saveData();
+
+            alert(
+                `Nice to meet you, ${name} 🌷`
+            );
+
+        }
+    );
+
+}
+
+
+/* Reset all data */
+
+if(resetDataButton){
+
+    resetDataButton.addEventListener(
+        "click",
+        ()=>{
+
+            const confirmed =
+                confirm(
+                    "Reset Mello?\n\nThis will delete all your tasks, goals, notes, and personal settings."
+                );
+
+            if(!confirmed){
+                return;
+            }
+
+            localStorage.removeItem(
+                STORAGE_KEY
+            );
+
+            location.reload();
+
+        }
+    );
+
+}
+
+    /* =====================================================
+   GREETING
+   ===================================================== */
+
+function updateGreeting(){
+
+    const greeting =
+        document.getElementById("greeting");
+
+    if(!greeting){
+        return;
+    }
+
+    const name =
+        data.userName?.trim();
+
+    if(!name){
+
+        greeting.textContent =
+            "Hello! 🌷";
+
+        return;
+    }
+
+
+    const tasks =
+        getDailyTasks(selectedDate);
+
+    const activeTasks =
+        tasks.filter(
+            task => task.text.trim()
+        );
+
+
+    if(activeTasks.length > 0){
+
+        greeting.textContent =
+            `Hello, ${name} 🌷 Your tasks are waiting. Take it one step at a time.`;
+
+    }else{
+
+        greeting.textContent =
+            `Hello, ${name} 🌷 Hooray! You have no tasks today. Enjoy your day. ✨`;
+
+    }
+
+}
 
 /* DATE */
 
@@ -2551,6 +2743,7 @@ function renderAll(){
     renderLists();
     updateDesktopProgress();
     updateMobileProgress();
+    updateGreeting();
 
     saveData();
 }
