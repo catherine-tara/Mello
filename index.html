@@ -1097,6 +1097,84 @@
 
         @media (max-width: 768px) {
 
+            /* =====================================================
+               MOBILE RESPONSIVE FIX
+               ===================================================== */
+
+            html,
+            body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .app {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            /* Desktop month navigation must not squeeze the phone layout */
+            .month-navigation {
+                display: none !important;
+            }
+
+            .header {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .brand {
+                min-width: 0;
+                flex: 1;
+            }
+
+            .brand h1 {
+                white-space: nowrap;
+            }
+
+            .brand p {
+                max-width: 180px;
+                line-height: 1.45;
+            }
+
+            .mobile-menu-button {
+                flex: 0 0 40px;
+            }
+
+            .mobile-day-navigation {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .mobile-date {
+                min-width: 0;
+                overflow: hidden;
+            }
+
+            .choose-date {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .mobile-day-card {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .mobile-task {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .mobile-task input[type="text"] {
+                min-width: 0;
+                max-width: 100%;
+            }
+
 
             body {
 
