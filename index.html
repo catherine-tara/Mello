@@ -1,1755 +1,879 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Mello</title>
-
-
-    <style>
-
-        /* =====================================================
-           MELLO
-           ===================================================== */
-
-        :root {
-
-            --pink: #f2c7d1;
-            --pink-light: #fdf0f3;
-            --pink-dark: #d58fa3;
-
-            --mint: #bfe3d7;
-            --mint-light: #edf8f4;
-            --mint-dark: #70aa97;
-
-            --yellow: #f7e5a7;
-            --yellow-light: #fff9df;
-
-            --cream: #fffaf4;
-            --white: #fffefd;
-
-            --text: #62534c;
-            --muted: #a08e85;
-
-            --border: #eadbd3;
-
-            --shadow:
-                0 8px 25px rgba(90, 70, 60, 0.07);
-
-            --radius: 18px;
-        }
-
-
-        * {
-            box-sizing: border-box;
-        }
-
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-
-        body {
-
-            margin: 0;
-
-            min-height: 100vh;
-
-            background:
-                radial-gradient(
-                    circle at 5% 5%,
-                    rgba(242,199,209,.35),
-                    transparent 25%
-                ),
-
-                radial-gradient(
-                    circle at 95% 15%,
-                    rgba(191,227,215,.35),
-                    transparent 25%
-                ),
-
-                var(--cream);
-
-            color: var(--text);
-
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-        }
-
-
-        button,
-        input,
-        textarea {
-            font: inherit;
-        }
-
-
-        button {
-            cursor: pointer;
-        }
-
-
-        /* =====================================================
-           APP
-           ===================================================== */
-
-        .app {
-
-            width: min(1500px, 100%);
-
-            margin: auto;
-
-            padding: 24px;
-        }
-
-
-        /* =====================================================
-           HEADER
-           ===================================================== */
-
-        .header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 20px;
-
-            margin-bottom: 20px;
-        }
-
-
-        .brand {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 12px;
-        }
-
-
-        .logo {
-
-            width: 48px;
-            height: 48px;
-
-            border-radius: 16px;
-
-            background: var(--pink);
-
-            color: white;
-
-            display: grid;
-
-            place-items: center;
-
-            font-family: Georgia, serif;
-
-            font-size: 30px;
-
-            box-shadow: var(--shadow);
-        }
-
-
-        .brand h1 {
-
-            margin: 0;
-
-            font-family: Georgia, serif;
-
-            font-size: 30px;
-        }
-
-
-        .brand p {
-
-            margin: 4px 0 0;
-
-            color: var(--muted);
-
-            font-size: 11px;
-        }
-
-
-        /* =====================================================
-           MONTH NAVIGATION
-           ===================================================== */
-
-        .month-navigation {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-        }
-
-
-        .nav-button {
-
-            width: 38px;
-            height: 38px;
-
-            border: 1px solid var(--border);
-
-            border-radius: 12px;
-
-            background: var(--white);
-
-            color: var(--text);
-
-            font-size: 22px;
-        }
-
-
-        .nav-button:hover {
-
-            border-color:
-                var(--pink-dark);
-        }
-
-
-        .month-title {
-
-            min-width: 150px;
-
-            text-align: center;
-        }
-
-
-        .month-title h2 {
-
-            margin: 0;
-
-            font-family: Georgia, serif;
-
-            font-size: 22px;
-        }
-
-
-        .month-title span {
-
-            font-size: 9px;
-
-            letter-spacing: 2px;
-
-            color: var(--muted);
-        }
-
-
-        .today-button {
-
-            height: 38px;
-
-            padding: 0 13px;
-
-            border: 1px solid var(--border);
-
-            border-radius: 12px;
-
-            background: var(--white);
-
-            color: var(--text);
-
-            font-size: 10px;
-        }
-
-
-        /* =====================================================
-           DESKTOP LAYOUT
-           ===================================================== */
-
-        .desktop-layout {
-
-            display: grid;
-
-            grid-template-columns:
-                190px
-                minmax(600px, 1fr)
-                210px;
-
-            gap: 14px;
-        }
-
-
-        .left-column,
-        .right-column {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 14px;
-        }
-
-
-        /* =====================================================
-           CARDS
-           ===================================================== */
-
-        .card {
-
-            background:
-                rgba(255,254,253,.94);
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                var(--radius);
-
-            box-shadow:
-                var(--shadow);
-
-            overflow:
-                hidden;
-        }
-
-
-        .card-title {
-
-            min-height: 40px;
-
-            padding: 0 13px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            border-bottom:
-                1px solid var(--border);
-
-            font-size: 9px;
-
-            font-weight: 700;
-
-            letter-spacing: 1.4px;
-        }
-
-
-        /* =====================================================
-           PROGRESS
-           ===================================================== */
-
-        .progress-card {
-
-            padding-bottom: 13px;
-        }
-
-
-        .progress-circle {
-
-            width: 110px;
-            height: 110px;
-
-            margin: 18px auto;
-
-            border-radius: 50%;
-
-            background:
-                conic-gradient(
-                    var(--pink-dark)
-                    var(--progress, 0%),
-                    #f0e4df 0
-                );
-
-            display: grid;
-
-            place-items: center;
-        }
-
-
-        .progress-inner {
-
-            width: 85px;
-            height: 85px;
-
-            border-radius: 50%;
-
-            background:
-                var(--white);
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            align-items: center;
-        }
-
-
-        .progress-inner strong {
-
-            font-size: 21px;
-        }
-
-
-        .progress-inner span {
-
-            color: var(--muted);
-
-            font-size: 8px;
-        }
-
-
-        .stats {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            border-top:
-                1px solid var(--border);
-
-            padding-top: 12px;
-        }
-
-
-        .stats div {
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            gap: 3px;
-        }
-
-
-        .stats strong {
-
-            font-size: 14px;
-        }
-
-
-        .stats span {
-
-            color: var(--muted);
-
-            font-size: 8px;
-        }
-
-
-        /* =====================================================
-           NOTES
-           ===================================================== */
-
-        .notes {
-
-            width: 100%;
-
-            min-height: 130px;
-
-            padding: 13px;
-
-            border: 0;
-
-            outline: 0;
-
-            resize: vertical;
-
-            background: transparent;
-
-            color: var(--text);
-
-            font-size: 10px;
-
-            line-height: 1.6;
-        }
-
-
-        /* =====================================================
-           QUOTE
-           ===================================================== */
-
-        .quote {
-
-            padding: 15px;
-
-            background:
-                var(--yellow-light);
-
-            border:
-                1px solid #eadfae;
-
-            border-radius:
-                var(--radius);
-        }
-
-
-        .quote p {
-
-            margin: 6px 0 0;
-
-            font-family: Georgia, serif;
-
-            font-size: 12px;
-
-            line-height: 1.5;
-        }
-
-
-        /* =====================================================
-           CALENDAR
-           ===================================================== */
-
-        .calendar-wrapper {
-
-            min-width: 0;
-        }
-
-
-        .weekdays {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(7, 1fr);
-
-            gap: 5px;
-
-            margin-bottom: 5px;
-        }
-
-
-        .weekday {
-
-            min-height: 28px;
-
-            display: grid;
-
-            place-items: center;
-
-            border-radius: 10px;
-
-            color: var(--muted);
-
-            font-size: 8px;
-
-            font-weight: 700;
-
-            letter-spacing: 1px;
-        }
-
-
-        .weekday:first-child,
-        .weekday:last-child {
-
-            background:
-                var(--pink-light);
-        }
-
-
-        .calendar-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(7, minmax(0, 1fr));
-
-            gap: 5px;
-        }
-
-
-        .calendar-day {
-
-            min-height: 120px;
-
-            background:
-                var(--white);
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 12px;
-
-            overflow: hidden;
-
-            display: flex;
-
-            flex-direction: column;
-
-            cursor: pointer;
-        }
-
-
-        .calendar-day.today {
-
-            border:
-                2px solid var(--mint-dark);
-        }
-
-
-        .calendar-day.selected {
-
-            box-shadow:
-                0 0 0 2px var(--pink-dark);
-        }
-
-
-        .empty-day {
-
-            background:
-                rgba(245,239,234,.4);
-
-            border-style:
-                dashed;
-
-            cursor: default;
-        }
-
-
-        .date-header {
-
-            height: 27px;
-
-            padding: 0 7px;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            border-bottom:
-                1px solid var(--border);
-
-            font-size: 9px;
-
-            font-weight: 700;
-        }
-
-
-        .today-label {
-
-            color:
-                var(--mint-dark);
-
-            font-size: 6px;
-
-            letter-spacing: 1px;
-        }
-
-
-        /* =====================================================
-           TASKS
-           ===================================================== */
-
-        .day-tasks {
-
-            flex: 1;
-
-            padding: 4px 6px;
-
-            overflow: hidden;
-        }
-
-
-        .task-row {
-
-            min-height: 21px;
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 5px;
-
-            border-bottom:
-                1px dashed #f0e6e0;
-        }
-
-
-        .task-check {
-
-            appearance: none;
-
-            width: 11px;
-            height: 11px;
-
-            min-width: 11px;
-
-            border:
-                1px solid #cdbcb4;
-
-            border-radius: 3px;
-
-            background: white;
-        }
-
-
-        .task-check:checked {
-
-            background:
-                var(--mint-dark);
-
-            border-color:
-                var(--mint-dark);
-        }
-
-
-        .task-check:checked::after {
-
-            content: "✓";
-
-            color: white;
-
-            display: block;
-
-            text-align: center;
-
-            font-size: 7px;
-        }
-
-
-        .task-input {
-
-            width: 100%;
-
-            min-width: 0;
-
-            border: 0;
-
-            outline: 0;
-
-            background: transparent;
-
-            color: var(--text);
-
-            font-size: 8px;
-        }
-
-
-        .task-row.completed
-        .task-input {
-
-            text-decoration:
-                line-through;
-
-            color:
-                #b6aaa4;
-        }
-
-
-        .add-task {
-
-            border: 0;
-
-            background: transparent;
-
-            color: var(--pink-dark);
-
-            padding: 4px 0;
-
-            font-size: 8px;
-        }
-
-
-        .day-progress {
-
-            height: 6px;
-
-            padding:
-                0 5px;
-        }
-
-
-        .day-progress-bar {
-
-            height: 3px;
-
-            border-radius: 10px;
-
-            background:
-                #eee5df;
-        }
-
-
-        .day-progress-fill {
-
-            height: 100%;
-
-            border-radius: 10px;
-
-            background:
-                var(--mint);
-        }
-
-
-        /* =====================================================
-           SIDE LISTS
-           ===================================================== */
-
-        .list-header {
-
-            min-height: 40px;
-
-            padding:
-                0 12px;
-
-            display: flex;
-
-            justify-content:
-                space-between;
-
-            align-items:
-                center;
-
-            border-bottom:
-                1px solid var(--border);
-
-            font-size: 9px;
-
-            font-weight: 700;
-
-            letter-spacing: 1.3px;
-        }
-
-
-        .pink {
-            background:
-                var(--pink-light);
-        }
-
-
-        .mint {
-            background:
-                var(--mint-light);
-        }
-
-
-        .yellow {
-            background:
-                var(--yellow-light);
-        }
-
-
-        .add-list {
-
-            width: 22px;
-            height: 22px;
-
-            border: 0;
-
-            border-radius: 7px;
-
-            background:
-                rgba(255,255,255,.75);
-        }
-
-
-        .list {
-
-            padding:
-                7px 11px;
-        }
-
-
-        .list-item {
-
-            min-height: 29px;
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 7px;
-
-            border-bottom:
-                1px dashed #eee3dc;
-        }
-
-
-        .list-check {
-
-            width: 11px;
-            height: 11px;
-        }
-
-
-        .list-input {
-
-            width: 100%;
-
-            border: 0;
-
-            outline: 0;
-
-            background: transparent;
-
-            color: var(--text);
-
-            font-size: 8px;
-        }
-
-
-        .list-item.completed
-        .list-input {
-
-            text-decoration:
-                line-through;
-
-            color:
-                #b6aaa4;
-        }
-
-
-        /* =====================================================
-           MOBILE-ONLY VIEW
-           ===================================================== */
-
-        .mobile-view {
-
-            display: none;
-        }
-
-
-        /* =====================================================
-           DRAWER
-           ===================================================== */
-
-        .drawer-overlay {
-
-            display: none;
-
-            position: fixed;
-
-            inset: 0;
-
-            background:
-                rgba(70,55,50,.28);
-
-            z-index: 50;
-        }
-
-
-        .drawer {
-
-            position: fixed;
-
-            top: 0;
-
-            left: 0;
-
-            bottom: 0;
-
-            width: min(
-                330px,
-                88vw
-            );
-
-            background:
-                var(--cream);
-
-            z-index: 60;
-
-            transform:
-                translateX(-105%);
-
-            transition:
-                transform .25s ease;
-
-            overflow-y: auto;
-
-            padding: 18px;
-        }
-
-
-        .drawer.open {
-
-            transform:
-                translateX(0);
-        }
-
-
-        .drawer-overlay.open {
-
-            display: block;
-        }
-
-
-        .drawer-header {
-
-            display: flex;
-
-            justify-content:
-                space-between;
-
-            align-items:
-                center;
-
-            margin-bottom: 18px;
-        }
-
-
-        .drawer-header h2 {
-
-            margin: 0;
-
-            font-family: Georgia, serif;
-
-            font-size: 24px;
-        }
-
-
-        .close-drawer {
-
-            width: 34px;
-            height: 34px;
-
-            border: 1px solid var(--border);
-
-            border-radius: 10px;
-
-            background: white;
-        }
-
-
-        .drawer-month {
-
-            margin-bottom: 15px;
-
-            padding: 12px;
-
-            background:
-                var(--mint-light);
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 14px;
-
-            text-align: center;
-
-            font-family: Georgia, serif;
-        }
-
-
-        .drawer-section {
-
-            margin-bottom: 12px;
-
-            background:
-                var(--white);
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 15px;
-
-            overflow: hidden;
-        }
-
-
-        .drawer-section-title {
-
-            min-height: 40px;
-
-            padding:
-                0 12px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content:
-                space-between;
-
-            border-bottom:
-                1px solid var(--border);
-
-            font-size: 9px;
-
-            font-weight: 700;
-
-            letter-spacing: 1px;
-        }
-
-
-        .drawer-list {
-
-            padding:
-                6px 11px;
-        }
-
-
-        /* =====================================================
-           MOBILE
-           ===================================================== */
-
-        @media (max-width: 768px) {
-
-            /* =====================================================
-               MOBILE RESPONSIVE FIX
-               ===================================================== */
-
-            html,
-            body {
-                width: 100%;
-                max-width: 100%;
-                overflow-x: hidden;
-            }
-
-            .app {
-                width: 100%;
-                max-width: 100%;
-                overflow-x: hidden;
-            }
-
-            /* Desktop month navigation must not squeeze the phone layout */
-            .month-navigation {
-                display: none !important;
-            }
-
-            .header {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 10px;
-            }
-
-            .brand {
-                min-width: 0;
-                flex: 1;
-            }
-
-            .brand h1 {
-                white-space: nowrap;
-            }
-
-            .brand p {
-                max-width: 180px;
-                line-height: 1.45;
-            }
-
-            .mobile-menu-button {
-                flex: 0 0 40px;
-            }
-
-            .mobile-day-navigation {
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .mobile-date {
-                min-width: 0;
-                overflow: hidden;
-            }
-
-            .choose-date {
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .mobile-day-card {
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .mobile-task {
-                width: 100%;
-                min-width: 0;
-            }
-
-            .mobile-task input[type="text"] {
-                min-width: 0;
-                max-width: 100%;
-            }
-
-
-            body {
-
-                min-height: 100dvh;
-            }
-
-
-            .app {
-
-                padding:
-                    12px;
-
-                min-height:
-                    100dvh;
-            }
-
-
-            /* Hide desktop */
-
-            .desktop-layout {
-
-                display: none;
-            }
-
-
-            /* Mobile view */
-
-            .mobile-view {
-
-                display: block;
-            }
-
-
-            .header {
-
-                margin-bottom:
-                    12px;
-
-                align-items:
-                    center;
-            }
-
-
-            .brand {
-
-                width: 100%;
-            }
-
-
-            .brand h1 {
-
-                font-size:
-                    26px;
-            }
-
-
-            .brand p {
-
-                font-size:
-                    9px;
-            }
-
-
-            .mobile-menu-button {
-
-                display: grid;
-
-                place-items:
-                    center;
-
-                width: 40px;
-                height: 40px;
-
-                border:
-                    1px solid var(--border);
-
-                border-radius:
-                    12px;
-
-                background:
-                    var(--white);
-
-                font-size:
-                    20px;
-            }
-
-
-            .mobile-day-navigation {
-
-                display: flex;
-
-                align-items:
-                    center;
-
-                justify-content:
-                    center;
-
-                gap: 7px;
-
-                margin-bottom:
-                    10px;
-            }
-
-
-            .mobile-day-navigation
-            button {
-
-                width:
-                    38px;
-
-                height:
-                    38px;
-
-                border:
-                    1px solid var(--border);
-
-                border-radius:
-                    12px;
-
-                background:
-                    var(--white);
-
-                color:
-                    var(--text);
-
-                font-size:
-                    22px;
-            }
-
-
-            .mobile-date {
-
-                flex: 1;
-
-                text-align:
-                    center;
-            }
-
-
-            .mobile-date h2 {
-
-                margin:
-                    0;
-
-                font-family:
-                    Georgia, serif;
-
-                font-size:
-                    21px;
-            }
-
-
-            .mobile-date span {
-
-                color:
-                    var(--muted);
-
-                font-size:
-                    9px;
-
-                letter-spacing:
-                    1.5px;
-            }
-
-
-            .mobile-today {
-
-                display:
-                    block;
-
-                margin:
-                    0 auto 14px;
-
-                padding:
-                    7px 12px;
-
-                border:
-                    0;
-
-                border-radius:
-                    10px;
-
-                background:
-                    var(--mint-light);
-
-                color:
-                    var(--mint-dark);
-
-                font-size:
-                    9px;
-
-                font-weight:
-                    700;
-            }
-
-
-            .choose-date {
-
-                width:
-                    100%;
-
-                height:
-                    42px;
-
-                margin-bottom:
-                    12px;
-
-                border:
-                    1px solid var(--border);
-
-                border-radius:
-                    13px;
-
-                background:
-                    var(--white);
-
-                color:
-                    var(--text);
-
-                font-size:
-                    10px;
-            }
-
-
-            .mobile-day-card {
-
-                background:
-                    var(--white);
-
-                border:
-                    1px solid var(--border);
-
-                border-radius:
-                    19px;
-
-                box-shadow:
-                    var(--shadow);
-
-                overflow:
-                    hidden;
-            }
-
-
-            .mobile-day-header {
-
-                padding:
-                    15px;
-
-                background:
-                    var(--pink-light);
-
-                border-bottom:
-                    1px solid var(--border);
-
-                display:
-                    flex;
-
-                justify-content:
-                    space-between;
-
-                align-items:
-                    center;
-            }
-
-
-            .mobile-day-header small {
-
-                font-size:
-                    7px;
-
-                letter-spacing:
-                    1.5px;
-
-                color:
-                    var(--muted);
-            }
-
-
-            .mobile-day-header h3 {
-
-                margin:
-                    4px 0 0;
-
-                font-family:
-                    Georgia, serif;
-
-                font-size:
-                    19px;
-            }
-
-
-            .mobile-day-progress {
-
-                text-align:
-                    right;
-            }
-
-
-            .mobile-day-progress strong {
-
-                font-size:
-                    16px;
-
-                color:
-                    var(--mint-dark);
-            }
-
-
-            .mobile-tasks {
-
-                padding:
-                    5px 15px;
-            }
-
-
-            .mobile-task {
-
-                min-height:
-                    48px;
-
-                display:
-                    flex;
-
-                align-items:
-                    center;
-
-                gap:
-                    10px;
-
-                border-bottom:
-                    1px dashed var(--border);
-            }
-
-
-            .mobile-task input[type="checkbox"] {
-
-                width:
-                    18px;
-
-                height:
-                    18px;
-
-                accent-color:
-                    var(--mint-dark);
-            }
-
-
-            .mobile-task input[type="text"] {
-
-                width:
-                    100%;
-
-                border:
-                    0;
-
-                outline:
-                    0;
-
-                background:
-                    transparent;
-
-                color:
-                    var(--text);
-
-                font-size:
-                    12px;
-            }
-
-
-            .mobile-task.completed
-            input[type="text"] {
-
-                text-decoration:
-                    line-through;
-
-                color:
-                    #b6aaa4;
-            }
-
-
-            .mobile-add-task {
-
-                width:
-                    100%;
-
-                height:
-                    45px;
-
-                border:
-                    0;
-
-                background:
-                    var(--mint-light);
-
-                color:
-                    var(--mint-dark);
-
-                font-weight:
-                    700;
-
-                font-size:
-                    10px;
-            }
-
-
-            .mobile-progress-bar {
-
-                height:
-                    5px;
-
-                margin:
-                    12px 15px 15px;
-
-                border-radius:
-                    10px;
-
-                background:
-                    #eee5df;
-            }
-
-
-            .mobile-progress-fill {
-
-                height:
-                    100%;
-
-                border-radius:
-                    10px;
-
-                background:
-                    var(--pink);
-            }
-
-
-            .mobile-menu-button {
-
-                margin-left:
-                    auto;
-            }
-
-
-            footer {
-
-                display:
-                    flex;
-
-                flex-direction:
-                    column;
-
-                align-items:
-                    center;
-
-                gap:
-                    5px;
-
-                padding:
-                    18px 0;
-
-                color:
-                    var(--muted);
-
-                font-size:
-                    7px;
-
-                text-align:
-                    center;
-            }
-
-        }
-
-
-        @media (min-width: 769px) {
-
-            .mobile-menu-button,
-            .mobile-day-navigation,
-            .mobile-date,
-            .mobile-today,
-            .choose-date,
-            .mobile-day-card {
-
-                display: none;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mello</title>
+
+<style>
+:root{
+    --pink:#f2c7d1;
+    --pink-light:#fdf0f3;
+    --pink-dark:#d58fa3;
+    --mint:#bfe3d7;
+    --mint-light:#edf8f4;
+    --mint-dark:#70aa97;
+    --yellow:#f7e5a7;
+    --yellow-light:#fff9df;
+    --cream:#fffaf4;
+    --white:#fffefd;
+    --text:#62534c;
+    --muted:#a08e85;
+    --border:#eadbd3;
+    --shadow:0 8px 25px rgba(90,70,60,.07);
+    --radius:18px;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+    margin:0;
+    width:100%;
+    min-height:100%;
+    overflow-x:hidden;
+}
+
+body{
+    background:
+        radial-gradient(circle at 5% 5%,rgba(242,199,209,.35),transparent 25%),
+        radial-gradient(circle at 95% 15%,rgba(191,227,215,.35),transparent 25%),
+        var(--cream);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+
+.app{
+    width:min(1500px,100%);
+    margin:auto;
+    padding:24px;
+}
+
+/* HEADER */
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:48px;
+    height:48px;
+    flex:0 0 48px;
+    display:grid;
+    place-items:center;
+    border-radius:16px;
+    background:var(--pink);
+    color:#fff;
+    font:30px Georgia,serif;
+    box-shadow:var(--shadow);
+}
+
+.brand h1{
+    margin:0;
+    font:600 30px Georgia,serif;
+}
+
+.brand p{
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:11px;
+}
+
+.month-navigation{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.nav-button,
+.today-button{
+    height:38px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--white);
+    color:var(--text);
+}
+
+.nav-button{width:38px;font-size:22px}
+.today-button{padding:0 13px;font-size:10px}
+
+.month-title{
+    min-width:150px;
+    text-align:center;
+}
+
+.month-title h2{
+    margin:0;
+    font:600 22px Georgia,serif;
+}
+
+.month-title span{
+    color:var(--muted);
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+/* DESKTOP */
+
+.desktop-layout{
+    display:grid;
+    grid-template-columns:190px minmax(600px,1fr) 210px;
+    gap:14px;
+}
+
+.left-column,
+.right-column{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.card{
+    overflow:hidden;
+    background:rgba(255,254,253,.95);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+
+.card-title,
+.list-header{
+    min-height:40px;
+    padding:0 13px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:1.3px;
+}
+
+.progress-card{padding-bottom:13px}
+
+.progress-circle{
+    width:110px;
+    height:110px;
+    margin:18px auto;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:conic-gradient(
+        var(--pink-dark) var(--progress,0%),
+        #f0e4df 0
+    );
+}
+
+.progress-inner{
+    width:85px;
+    height:85px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:var(--white);
+}
+
+.progress-inner strong{font-size:21px}
+.progress-inner span{color:var(--muted);font-size:8px}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    padding-top:12px;
+    border-top:1px solid var(--border);
+}
+
+.stats div{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+}
+
+.stats strong{font-size:14px}
+.stats span{color:var(--muted);font-size:8px}
+
+.notes{
+    width:100%;
+    min-height:130px;
+    padding:13px;
+    border:0;
+    outline:0;
+    resize:vertical;
+    background:transparent;
+    color:var(--text);
+    font-size:10px;
+    line-height:1.6;
+}
+
+.quote{
+    padding:15px;
+    background:var(--yellow-light);
+    border:1px solid #eadfae;
+    border-radius:var(--radius);
+}
+
+.quote p{
+    margin:6px 0 0;
+    font:12px/1.5 Georgia,serif;
+}
+
+/* CALENDAR */
+
+.weekdays,
+.calendar-grid{
+    display:grid;
+    grid-template-columns:repeat(7,minmax(0,1fr));
+    gap:5px;
+}
+
+.weekdays{margin-bottom:5px}
+
+.weekday{
+    min-height:28px;
+    display:grid;
+    place-items:center;
+    border-radius:10px;
+    color:var(--muted);
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.weekday:first-child,
+.weekday:last-child{
+    background:var(--pink-light);
+}
+
+.calendar-day{
+    min-height:120px;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.calendar-day.today{border:2px solid var(--mint-dark)}
+.calendar-day.selected{box-shadow:0 0 0 2px var(--pink-dark)}
+.empty-day{
+    background:rgba(245,239,234,.4);
+    border-style:dashed;
+    cursor:default;
+}
+
+.date-header{
+    height:27px;
+    padding:0 7px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+    font-size:9px;
+    font-weight:700;
+}
+
+.today-label{
+    color:var(--mint-dark);
+    font-size:6px;
+    letter-spacing:1px;
+}
+
+.day-tasks{
+    flex:1;
+    padding:4px 6px;
+    overflow:hidden;
+}
+
+.task-row{
+    min-height:21px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    border-bottom:1px dashed #f0e6e0;
+}
+
+.task-check{
+    appearance:none;
+    width:11px;
+    height:11px;
+    flex:0 0 11px;
+    margin:0;
+    border:1px solid #cdbcb4;
+    border-radius:3px;
+    background:#fff;
+}
+
+.task-check:checked{
+    background:var(--mint-dark);
+    border-color:var(--mint-dark);
+}
+
+.task-check:checked::after{
+    content:"✓";
+    display:block;
+    color:#fff;
+    text-align:center;
+    font-size:7px;
+}
+
+.task-input,
+.list-input{
+    width:100%;
+    min-width:0;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:var(--text);
+}
+
+.task-input{font-size:8px}
+.task-row.completed .task-input,
+.list-item.completed .list-input{
+    color:#b6aaa4;
+    text-decoration:line-through;
+}
+
+.add-task{
+    padding:4px 0;
+    border:0;
+    background:transparent;
+    color:var(--pink-dark);
+    font-size:8px;
+}
+
+.day-progress{
+    height:6px;
+    padding:0 5px;
+}
+
+.day-progress-bar{
+    height:3px;
+    border-radius:10px;
+    background:#eee5df;
+}
+
+.day-progress-fill{
+    height:100%;
+    border-radius:10px;
+    background:var(--mint);
+}
+
+/* SIDE LIST */
+
+.pink{background:var(--pink-light)}
+.mint{background:var(--mint-light)}
+.yellow{background:var(--yellow-light)}
+
+.add-list{
+    width:22px;
+    height:22px;
+    border:0;
+    border-radius:7px;
+    background:rgba(255,255,255,.75);
+}
+
+.list{padding:7px 11px}
+
+.list-item{
+    min-height:29px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    border-bottom:1px dashed #eee3dc;
+}
+
+.list-check{
+    width:11px;
+    height:11px;
+}
+
+/* MOBILE */
+
+.mobile-view{display:none}
+.mobile-menu-button{display:none}
+
+.drawer-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:50;
+    background:rgba(70,55,50,.28);
+}
+
+.drawer-overlay.open{display:block}
+
+.drawer{
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    z-index:60;
+    width:min(330px,88vw);
+    padding:18px;
+    overflow-y:auto;
+    background:var(--cream);
+    transform:translateX(-105%);
+    transition:transform .25s ease;
+}
+
+.drawer.open{transform:translateX(0)}
+
+.drawer-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+}
+
+.drawer-header h2{
+    margin:0;
+    font:24px Georgia,serif;
+}
+
+.close-drawer{
+    width:34px;
+    height:34px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#fff;
+    color:var(--text);
+}
+
+.drawer-month{
+    margin-bottom:15px;
+    padding:12px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:var(--mint-light);
+    text-align:center;
+    font:14px Georgia,serif;
+}
+
+.drawer-section{
+    margin-bottom:12px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    border-radius:15px;
+    background:var(--white);
+}
+
+.drawer-section-title{
+    min-height:40px;
+    padding:0 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.drawer-list{padding:6px 11px}
+
+@media(max-width:768px){
+
+    html,body{
+        width:100%;
+        max-width:100%;
+        overflow-x:hidden;
+    }
+
+    .app{
+        width:100%;
+        max-width:100%;
+        min-height:100dvh;
+        padding:12px;
+        overflow-x:hidden;
+    }
+
+    /* DESKTOP MONTH NAVIGATION MUST DISAPPEAR */
+    .month-navigation{
+        display:none !important;
+    }
+
+    .desktop-layout{
+        display:none !important;
+    }
+
+    .mobile-view{
+        display:block !important;
+        width:100%;
+        max-width:100%;
+    }
+
+    .header{
+        width:100%;
+        margin-bottom:12px;
+        gap:10px;
+    }
+
+    .brand{
+        min-width:0;
+        flex:1;
+    }
+
+    .logo{
+        width:42px;
+        height:42px;
+        flex:0 0 42px;
+        border-radius:14px;
+        font-size:26px;
+    }
+
+    .brand h1{
+        font-size:26px;
+        white-space:nowrap;
+    }
+
+    .brand p{
+        max-width:180px;
+        font-size:9px;
+    }
+
+    .mobile-menu-button{
+        width:40px;
+        height:40px;
+        flex:0 0 40px;
+        display:grid !important;
+        place-items:center;
+        border:1px solid var(--border);
+        border-radius:12px;
+        background:var(--white);
+        color:var(--text);
+        font-size:18px;
+    }
+
+    .mobile-day-navigation{
+        width:100%;
+        display:flex;
+        align-items:center;
+        gap:7px;
+        margin-bottom:7px;
+    }
+
+    .mobile-day-navigation button{
+        width:38px;
+        height:38px;
+        flex:0 0 38px;
+        border:1px solid var(--border);
+        border-radius:12px;
+        background:var(--white);
+        color:var(--text);
+        font-size:22px;
+    }
+
+    .mobile-date{
+        flex:1;
+        min-width:0;
+        overflow:hidden;
+        text-align:center;
+    }
+
+    .mobile-date h2{
+        margin:0;
+        font:600 21px Georgia,serif;
+        white-space:nowrap;
+    }
+
+    .mobile-date span{
+        display:block;
+        margin-top:2px;
+        color:var(--muted);
+        font-size:8px;
+        letter-spacing:1.5px;
+        text-transform:uppercase;
+    }
+
+    .mobile-today{
+        display:block;
+        margin:0 auto 10px;
+        padding:7px 12px;
+        border:0;
+        border-radius:10px;
+        background:var(--mint-light);
+        color:var(--mint-dark);
+        font-size:8px;
+        font-weight:700;
+        letter-spacing:.8px;
+    }
+
+    /*
+       CHOOSE DATE
+       Native input sits over the complete button.
+       No display:none, no showPicker(), no JS click().
+    */
+
+    .choose-date{
+        position:relative;
+        width:100%;
+        height:48px;
+        margin-bottom:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+        border:1px solid var(--border);
+        border-radius:15px;
+        background:var(--white);
+        color:var(--text);
+        font-size:11px;
+        cursor:pointer;
+    }
+
+    .choose-date span{
+        position:relative;
+        z-index:1;
+        pointer-events:none;
+    }
+
+    #datePicker{
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        margin:0;
+        padding:0;
+        border:0;
+        opacity:0;
+        cursor:pointer;
+        z-index:2;
+    }
+
+    .mobile-day-card{
+        width:100%;
+        max-width:100%;
+        overflow:hidden;
+        border:1px solid var(--border);
+        border-radius:22px;
+        background:var(--white);
+        box-shadow:var(--shadow);
+    }
+
+    .mobile-day-header{
+        min-height:78px;
+        padding:14px 15px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        border-bottom:1px solid var(--border);
+        background:var(--pink-light);
+    }
+
+    .mobile-day-header small{
+        display:block;
+        margin-bottom:5px;
+        color:var(--muted);
+        font-size:7px;
+        font-weight:700;
+        letter-spacing:1.5px;
+    }
+
+    .mobile-day-header h3{
+        margin:0;
+        font:600 21px Georgia,serif;
+    }
+
+    .mobile-day-progress{
+        width:50px;
+        height:50px;
+        flex:0 0 50px;
+        display:grid;
+        place-items:center;
+        border-radius:50%;
+        background:conic-gradient(
+            var(--mint-dark) var(--mobile-progress,0%),
+            #e9eee9 0
+        );
+    }
+
+    .mobile-day-progress strong{
+        width:40px;
+        height:40px;
+        display:grid;
+        place-items:center;
+        border-radius:50%;
+        background:#fff;
+        color:var(--mint-dark);
+        font-size:11px;
+    }
+
+    .mobile-tasks{
+        width:100%;
+        padding:5px 15px;
+    }
+
+    .mobile-task{
+        width:100%;
+        min-width:0;
+        min-height:53px;
+        display:flex;
+        align-items:center;
+        gap:11px;
+        border-bottom:1px dashed var(--border);
+    }
+
+    .mobile-task:last-child{border-bottom:0}
+
+    .mobile-task input[type="checkbox"]{
+        width:19px;
+        height:19px;
+        flex:0 0 19px;
+        margin:0;
+        accent-color:var(--mint-dark);
+    }
+
+    .mobile-task input[type="text"]{
+        width:100%;
+        min-width:0;
+        border:0;
+        outline:0;
+        background:transparent;
+        color:var(--text);
+        font-size:12px;
+    }
+
+    .mobile-task.completed input[type="text"]{
+        color:var(--muted);
+        text-decoration:line-through;
+    }
+
+    .mobile-add-task{
+        width:100%;
+        height:48px;
+        border:0;
+        background:var(--mint-light);
+        color:var(--mint-dark);
+        font-size:10px;
+        font-weight:700;
+    }
+
+    .mobile-progress-bar{
+        height:5px;
+        margin:0 15px 15px;
+        overflow:hidden;
+        border-radius:10px;
+        background:#eee5df;
+    }
+
+    .mobile-progress-fill{
+        width:0%;
+        height:100%;
+        border-radius:inherit;
+        background:linear-gradient(90deg,var(--pink),var(--mint));
+        transition:width .2s ease;
+    }
+
+    footer{
+        width:100%;
+        padding:18px 5px 5px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:5px;
+        text-align:center;
+        color:var(--muted);
+        font-size:8px;
+    }
+}
+
+@media(max-width:390px){
+
+    .app{padding:9px}
+
+    .brand h1{font-size:24px}
+
+    .brand p{
+        max-width:155px;
+        font-size:8px;
+    }
+
+    .mobile-day-navigation button{
+        width:35px;
+        height:35px;
+        flex-basis:35px;
+    }
+
+    .mobile-date h2{font-size:19px}
+
+    .mobile-day-header h3{font-size:19px}
+
+    .mobile-task{
+        min-height:49px;
+    }
+
+    .mobile-task input[type="text"]{
+        font-size:11px;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
-
 <div class="app">
 
-
-    <!-- =====================================================
-         HEADER
-         ===================================================== -->
-
+    <!-- HEADER -->
     <header class="header">
 
-
         <div class="brand">
-
-            <div class="logo">
-                m
-            </div>
+            <div class="logo">M</div>
 
             <div>
-
-                <h1>
-                    Mello
-                </h1>
-
-                <p>
-                    A soft space to plan your life.
-                </p>
-
+                <h1>Mello</h1>
+                <p>A soft space to plan your life.</p>
             </div>
-
         </div>
-
-
-        <!-- Desktop month navigation -->
 
         <div class="month-navigation">
 
             <button
                 class="nav-button"
                 id="previousMonth"
-            >
-                ‹
-            </button>
-
+                aria-label="Previous month"
+            >‹</button>
 
             <div class="month-title">
-
-                <h2 id="monthName">
-                    August
-                </h2>
-
-                <span id="yearName">
-                    2026
-                </span>
-
+                <h2 id="monthName">August</h2>
+                <span id="yearName">2026</span>
             </div>
-
 
             <button
                 class="nav-button"
                 id="nextMonth"
-            >
-                ›
-            </button>
-
+                aria-label="Next month"
+            >›</button>
 
             <button
                 class="today-button"
                 id="todayButton"
-            >
-                Today
-            </button>
+            >Today</button>
 
         </div>
-
-
-        <!-- Mobile menu -->
 
         <button
             class="mobile-menu-button"
             id="openDrawer"
-        >
-            ☰
-        </button>
+            aria-label="Open menu"
+        >☰</button>
 
     </header>
 
@@ -1760,79 +884,41 @@
 
     <main class="desktop-layout">
 
-
         <!-- LEFT -->
 
         <aside class="left-column">
 
-
             <section class="card progress-card">
 
                 <div class="card-title">
-                    MONTHLY PROGRESS
+                    <span>MONTHLY PROGRESS</span>
                 </div>
-
 
                 <div
                     class="progress-circle"
                     id="desktopProgressCircle"
                 >
-
                     <div class="progress-inner">
-
-                        <strong
-                            id="desktopProgress"
-                        >
-                            0%
-                        </strong>
-
-                        <span>
-                            completed
-                        </span>
-
+                        <strong id="desktopProgress">0%</strong>
+                        <span>completed</span>
                     </div>
-
                 </div>
-
 
                 <div class="stats">
 
                     <div>
-                        <strong
-                            id="desktopTotal"
-                        >
-                            0
-                        </strong>
-
-                        <span>
-                            Total
-                        </span>
+                        <strong id="desktopTotal">0</strong>
+                        <span>TOTAL</span>
                     </div>
 
-
                     <div>
-                        <strong
-                            id="desktopDone"
-                        >
-                            0
-                        </strong>
-
-                        <span>
-                            Done
-                        </span>
+                        <strong id="desktopDone">0</strong>
+                        <span>DONE</span>
                     </div>
 
-
                     <div>
-                        <strong
-                            id="desktopLeft"
-                        >
-                            0
-                        </strong>
-
-                        <span>
-                            Left
-                        </span>
+                        <strong id="desktopLeft">0</strong>
+                        <span>LEFT</span>
                     </div>
 
                 </div>
@@ -1843,13 +929,13 @@
             <section class="card">
 
                 <div class="card-title">
-                    NOTES
+                    <span>NOTES</span>
                 </div>
 
                 <textarea
                     class="notes"
                     id="notes"
-                    placeholder="Write something here..."
+                    placeholder="Write anything..."
                 ></textarea>
 
             </section>
@@ -1857,16 +943,13 @@
 
             <div class="quote">
 
-                <span>
-                    ✿
-                </span>
+                <span>✿</span>
 
                 <p>
                     Small steps still move you forward.
                 </p>
 
             </div>
-
 
         </aside>
 
@@ -1875,18 +958,15 @@
 
         <section class="calendar-wrapper">
 
-
             <div
                 class="weekdays"
                 id="weekdays"
             ></div>
 
-
             <div
                 class="calendar-grid"
                 id="calendarGrid"
             ></div>
-
 
         </section>
 
@@ -1899,16 +979,12 @@
 
                 <div class="list-header pink">
 
-                    <span>
-                        TOP GOALS
-                    </span>
+                    <span>MONTHLY GOALS</span>
 
                     <button
                         class="add-list"
                         data-list="goals"
-                    >
-                        +
-                    </button>
+                    >+</button>
 
                 </div>
 
@@ -1924,16 +1000,12 @@
 
                 <div class="list-header yellow">
 
-                    <span>
-                        MONTHLY TO-DO
-                    </span>
+                    <span>MONTHLY TO-DO</span>
 
                     <button
                         class="add-list"
                         data-list="todo"
-                    >
-                        +
-                    </button>
+                    >+</button>
 
                 </div>
 
@@ -1949,16 +1021,12 @@
 
                 <div class="list-header mint">
 
-                    <span>
-                        PERSONAL
-                    </span>
+                    <span>PERSONAL</span>
 
                     <button
                         class="add-list"
                         data-list="personal"
-                    >
-                        +
-                    </button>
+                    >+</button>
 
                 </div>
 
@@ -1974,16 +1042,12 @@
 
                 <div class="list-header pink">
 
-                    <span>
-                        CAREER
-                    </span>
+                    <span>CAREER</span>
 
                     <button
                         class="add-list"
                         data-list="career"
-                    >
-                        +
-                    </button>
+                    >+</button>
 
                 </div>
 
@@ -1996,7 +1060,6 @@
 
         </aside>
 
-
     </main>
 
 
@@ -2006,40 +1069,23 @@
 
     <main class="mobile-view">
 
-
         <div class="mobile-day-navigation">
 
-
-            <button
-                id="previousDay"
-            >
-                ‹
-            </button>
-
+            <button id="previousDay">‹</button>
 
             <div class="mobile-date">
 
-                <h2
-                    id="mobileDate"
-                >
-                    August 8
+                <h2 id="mobileDate">
+                    Aug 8
                 </h2>
 
-                <span
-                    id="mobileWeekday"
-                >
+                <span id="mobileWeekday">
                     Saturday
                 </span>
 
             </div>
 
-
-            <button
-                id="nextDay"
-            >
-                ›
-            </button>
-
+            <button id="nextDay">›</button>
 
         </div>
 
@@ -2052,57 +1098,47 @@
         </button>
 
 
-        <button
+        <!-- REAL NATIVE DATE INPUT -->
+
+        <label
             class="choose-date"
             id="chooseDate"
         >
-            Choose Date
-        </button>
 
+            <span>Choose Date</span>
 
-        <!-- hidden native date picker -->
-
-        <input
-            type="date"
-            id="datePicker"
-            style="display:none;"
-        >
-
-
-        <section
-            class="mobile-day-card"
-        >
-
-
-            <div
-                class="mobile-day-header"
+            <input
+                type="date"
+                id="datePicker"
+                aria-label="Choose date"
             >
+
+        </label>
+
+
+        <!-- DAILY CARD -->
+
+        <section class="mobile-day-card">
+
+            <div class="mobile-day-header">
 
                 <div>
 
-                    <small>
-                        DAILY PLANNER
-                    </small>
+                    <small>DAILY PLANNER</small>
 
-                    <h3
-                        id="mobileDayTitle"
-                    >
+                    <h3 id="mobileDayTitle">
                         Saturday
                     </h3>
 
                 </div>
 
-
                 <div
                     class="mobile-day-progress"
+                    id="mobileDayProgress"
                 >
-
-                    <strong
-                        id="mobileProgress"
-                    >
+                    <strong id="mobileProgress">
                         0%
                     </strong>
-
                 </div>
 
             </div>
@@ -2122,9 +1158,7 @@
             </button>
 
 
-            <div
-                class="mobile-progress-bar"
-            >
+            <div class="mobile-progress-bar">
 
                 <div
                     class="mobile-progress-fill"
@@ -2133,216 +1167,15 @@
 
             </div>
 
-
         </section>
-
 
     </main>
 
 
-    <!-- =====================================================
-         DRAWER
-         ===================================================== -->
-
-    <div
-        class="drawer-overlay"
-        id="drawerOverlay"
-    ></div>
-
-
-    <aside
-        class="drawer"
-        id="drawer"
-    >
-
-
-        <div
-            class="drawer-header"
-        >
-
-            <h2>
-                Mello
-            </h2>
-
-            <button
-                class="close-drawer"
-                id="closeDrawer"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <div
-            class="drawer-month"
-            id="drawerMonth"
-        >
-            August 2026
-        </div>
-
-
-        <!-- GOALS -->
-
-        <section
-            class="drawer-section"
-        >
-
-            <div
-                class="drawer-section-title pink"
-            >
-
-                <span>
-                    🌷 MONTHLY GOALS
-                </span>
-
-                <button
-                    class="add-list"
-                    data-list="goals"
-                >
-                    +
-                </button>
-
-            </div>
-
-
-            <div
-                class="drawer-list list"
-                id="mobileGoals"
-            ></div>
-
-        </section>
-
-
-        <!-- TODO -->
-
-        <section
-            class="drawer-section"
-        >
-
-            <div
-                class="drawer-section-title yellow"
-            >
-
-                <span>
-                    💛 MONTHLY TO-DO
-                </span>
-
-                <button
-                    class="add-list"
-                    data-list="todo"
-                >
-                    +
-                </button>
-
-            </div>
-
-
-            <div
-                class="drawer-list list"
-                id="mobileTodo"
-            ></div>
-
-        </section>
-
-
-        <!-- PERSONAL -->
-
-        <section
-            class="drawer-section"
-        >
-
-            <div
-                class="drawer-section-title mint"
-            >
-
-                <span>
-                    🌿 PERSONAL
-                </span>
-
-                <button
-                    class="add-list"
-                    data-list="personal"
-                >
-                    +
-                </button>
-
-            </div>
-
-
-            <div
-                class="drawer-list list"
-                id="mobilePersonal"
-            ></div>
-
-        </section>
-
-
-        <!-- CAREER -->
-
-        <section
-            class="drawer-section"
-        >
-
-            <div
-                class="drawer-section-title pink"
-            >
-
-                <span>
-                    💗 CAREER
-                </span>
-
-                <button
-                    class="add-list"
-                    data-list="career"
-                >
-                    +
-                </button>
-
-            </div>
-
-
-            <div
-                class="drawer-list list"
-                id="mobileCareer"
-            ></div>
-
-        </section>
-
-
-        <!-- NOTES -->
-
-        <section
-            class="drawer-section"
-        >
-
-            <div
-                class="drawer-section-title"
-            >
-                📝 NOTES
-            </div>
-
-
-            <textarea
-                class="notes"
-                id="mobileNotes"
-                placeholder="Write something..."
-            ></textarea>
-
-        </section>
-
-
-    </aside>
-
-
-    <!-- =====================================================
-         FOOTER
-         ===================================================== -->
-
     <footer>
 
         <span>
-            Made for softer, more intentional days.
+            Mello — a soft space to plan your life.
         </span>
 
         <span>
@@ -2351,338 +1184,345 @@
 
     </footer>
 
-
 </div>
 
 
+<!-- =========================================================
+     DRAWER
+     ========================================================= -->
+
+<div
+    class="drawer-overlay"
+    id="drawerOverlay"
+></div>
+
+
+<aside
+    class="drawer"
+    id="drawer"
+>
+
+    <div class="drawer-header">
+
+        <h2>Mello</h2>
+
+        <button
+            class="close-drawer"
+            id="closeDrawer"
+        >×</button>
+
+    </div>
+
+
+    <div
+        class="drawer-month"
+        id="drawerMonth"
+    >
+        August 2026
+    </div>
+
+
+    <section class="drawer-section">
+
+        <div class="drawer-section-title">
+
+            <span>MONTHLY GOALS</span>
+
+            <button
+                class="add-list"
+                data-list="goals"
+            >+</button>
+
+        </div>
+
+        <div
+            class="drawer-list list"
+            id="mobileGoals"
+        ></div>
+
+    </section>
+
+
+    <section class="drawer-section">
+
+        <div class="drawer-section-title">
+
+            <span>MONTHLY TO-DO</span>
+
+            <button
+                class="add-list"
+                data-list="todo"
+            >+</button>
+
+        </div>
+
+        <div
+            class="drawer-list list"
+            id="mobileTodo"
+        ></div>
+
+    </section>
+
+
+    <section class="drawer-section">
+
+        <div class="drawer-section-title">
+
+            <span>PERSONAL</span>
+
+            <button
+                class="add-list"
+                data-list="personal"
+            >+</button>
+
+        </div>
+
+        <div
+            class="drawer-list list"
+            id="mobilePersonal"
+        ></div>
+
+    </section>
+
+
+    <section class="drawer-section">
+
+        <div class="drawer-section-title">
+
+            <span>CAREER</span>
+
+            <button
+                class="add-list"
+                data-list="career"
+            >+</button>
+
+        </div>
+
+        <div
+            class="drawer-list list"
+            id="mobileCareer"
+        ></div>
+
+    </section>
+
+</aside>
+
+
 <script>
+/* =========================================================
+   MELLO JAVASCRIPT
+   ========================================================= */
 
+const STORAGE_KEY = "mello-v1";
 
-/* =====================================================
-   MELLO DATA
-   ===================================================== */
+let data = {
+    daily:{},
+    monthly:{},
+    personal:[],
+    career:[],
+    notes:""
+};
 
-
-const STORAGE_KEY =
-    "mello-v1";
-
-
-function loadData() {
-
+try{
     const saved =
-        localStorage.getItem(
-            STORAGE_KEY
-        );
+        localStorage.getItem(STORAGE_KEY);
 
-
-    if (saved) {
-
-        try {
-
-            return JSON.parse(
-                saved
-            );
-
-        } catch {
-
-            console.warn(
-                "Mello data could not be loaded."
-            );
-
-        }
-
+    if(saved){
+        data = {
+            ...data,
+            ...JSON.parse(saved)
+        };
     }
-
-
-    return {
-
-        daily: {},
-
-        monthly: {},
-
-        personal: [],
-
-        career: [],
-
-        notes: ""
-
-    };
-
+}catch(error){
+    console.warn("Could not load Mello data.");
 }
 
-
-const data =
-    loadData();
-
-
-function saveData() {
-
+function saveData(){
     localStorage.setItem(
         STORAGE_KEY,
         JSON.stringify(data)
     );
-
 }
 
 
-/* =====================================================
-   DATES
-   ===================================================== */
+/* DATE */
 
+const today = new Date();
 
-const realToday =
-    new Date();
-
+const realToday = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate()
+);
 
 let selectedDate =
-    new Date(
-        realToday.getFullYear(),
-        realToday.getMonth(),
-        realToday.getDate()
-    );
+    new Date(realToday);
 
 
-function pad(number) {
-
-    return String(
-        number
-    ).padStart(
-        2,
-        "0"
-    );
-
+function pad(n){
+    return String(n).padStart(2,"0");
 }
 
-
-function dateKey(date) {
-
+function dateKey(date){
     return [
-
         date.getFullYear(),
-
-        pad(
-            date.getMonth() + 1
-        ),
-
-        pad(
-            date.getDate()
-        )
-
+        pad(date.getMonth()+1),
+        pad(date.getDate())
     ].join("-");
-
 }
 
-
-function monthKey(date) {
-
+function monthKey(date){
     return [
-
         date.getFullYear(),
-
-        pad(
-            date.getMonth() + 1
-        )
-
+        pad(date.getMonth()+1)
     ].join("-");
-
 }
 
-
-function daysInMonth(
-    year,
-    month
-) {
-
+function daysInMonth(year,month){
     return new Date(
         year,
-        month + 1,
+        month+1,
         0
     ).getDate();
+}
 
+function sameDate(a,b){
+    return dateKey(a) === dateKey(b);
 }
 
 
-/* =====================================================
-   DAILY TASKS
-   ===================================================== */
+/* DAILY TASKS */
 
+function getDailyTasks(date){
 
-function getDailyTasks(
-    date
-) {
+    const key = dateKey(date);
 
-    const key =
-        dateKey(date);
-
-
-    if (
-        !data.daily[key]
-    ) {
+    if(!data.daily[key]){
 
         data.daily[key] = [
-
-            {
-                text: "",
-                completed: false
-            },
-
-            {
-                text: "",
-                completed: false
-            },
-
-            {
-                text: "",
-                completed: false
-            }
-
+            {text:"",completed:false},
+            {text:"",completed:false},
+            {text:"",completed:false}
         ];
-
     }
 
-
     return data.daily[key];
-
 }
 
 
-/* =====================================================
-   MONTHLY DATA
-   ===================================================== */
+/* MONTHLY */
 
+function getMonthly(date){
 
-function getMonthlyData(
-    date
-) {
+    const key = monthKey(date);
 
-    const key =
-        monthKey(date);
-
-
-    if (
-        !data.monthly[key]
-    ) {
+    if(!data.monthly[key]){
 
         data.monthly[key] = {
 
-            goals: [
-
-                {
-                    text: "",
-                    completed: false
-                },
-
-                {
-                    text: "",
-                    completed: false
-                },
-
-                {
-                    text: "",
-                    completed: false
-                }
-
+            goals:[
+                {text:"",completed:false},
+                {text:"",completed:false},
+                {text:"",completed:false}
             ],
 
-            todo: [
-
-                {
-                    text: "",
-                    completed: false
-                },
-
-                {
-                    text: "",
-                    completed: false
-                },
-
-                {
-                    text: "",
-                    completed: false
-                }
-
+            todo:[
+                {text:"",completed:false},
+                {text:"",completed:false},
+                {text:"",completed:false}
             ]
-
         };
-
     }
-
 
     return data.monthly[key];
-
 }
 
 
-/* =====================================================
-   PROGRESS
-   ===================================================== */
+/* PROGRESS */
 
+function progress(tasks){
 
-function calculateProgress(
-    tasks
-) {
-
-    const realTasks =
+    const valid =
         tasks.filter(
-            task =>
-                task.text.trim()
+            t => t.text.trim()
         );
 
+    if(!valid.length) return 0;
 
-    if (
-        realTasks.length === 0
-    ) {
-
-        return 0;
-
-    }
-
-
-    const completed =
-        realTasks.filter(
-            task =>
-                task.completed
+    const done =
+        valid.filter(
+            t => t.completed
         ).length;
 
-
     return Math.round(
-        completed /
-        realTasks.length *
-        100
+        done / valid.length * 100
     );
+}
 
+function monthlyProgress(date){
+
+    let total = 0;
+    let done = 0;
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        date.getMonth();
+
+    for(
+        let d=1;
+        d<=daysInMonth(year,month);
+        d++
+    ){
+
+        const current =
+            new Date(year,month,d);
+
+        const tasks =
+            data.daily[dateKey(current)] || [];
+
+        tasks.forEach(task=>{
+
+            if(task.text.trim()){
+
+                total++;
+
+                if(task.completed){
+                    done++;
+                }
+            }
+        });
+    }
+
+    return {
+        total,
+        done,
+        left:total-done,
+        percentage:
+            total
+                ? Math.round(done/total*100)
+                : 0
+    };
 }
 
 
-/* =====================================================
-   DESKTOP CALENDAR
-   ===================================================== */
+/* DESKTOP CALENDAR */
 
-
-function renderDesktopCalendar() {
-
-    const grid =
-        document.getElementById(
-            "calendarGrid"
-        );
-
+function renderCalendar(){
 
     const weekdays =
-        document.getElementById(
-            "weekdays"
-        );
+        document.getElementById("weekdays");
 
+    const grid =
+        document.getElementById("calendarGrid");
 
-    grid.innerHTML =
-        "";
+    if(!weekdays || !grid) return;
 
+    weekdays.innerHTML="";
+    grid.innerHTML="";
 
-    weekdays.innerHTML =
-        "";
-
-
-    const weekdayNames = [
-
+    [
         "SUN",
         "MON",
         "TUE",
@@ -2690,473 +1530,273 @@ function renderDesktopCalendar() {
         "THU",
         "FRI",
         "SAT"
+    ].forEach(day=>{
 
-    ];
+        const el =
+            document.createElement("div");
 
+        el.className="weekday";
+        el.textContent=day;
 
-    weekdayNames.forEach(
-        day => {
-
-            const el =
-                document.createElement(
-                    "div"
-                );
-
-            el.className =
-                "weekday";
-
-            el.textContent =
-                day;
-
-            weekdays.appendChild(
-                el
-            );
-
-        }
-    );
+        weekdays.appendChild(el);
+    });
 
 
     const year =
         selectedDate.getFullYear();
 
-
     const month =
         selectedDate.getMonth();
 
+    const first =
+        new Date(year,month,1).getDay();
 
-    const firstDay =
-        new Date(
-            year,
-            month,
-            1
-        ).getDay();
+    const total =
+        daysInMonth(year,month);
 
 
-    const totalDays =
-        daysInMonth(
-            year,
-            month
-        );
-
-
-    for (
-        let i = 0;
-        i < firstDay;
-        i++
-    ) {
+    for(let i=0;i<first;i++){
 
         const empty =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
         empty.className =
             "calendar-day empty-day";
 
-        grid.appendChild(
-            empty
-        );
-
+        grid.appendChild(empty);
     }
 
 
-    for (
-        let day = 1;
-        day <= totalDays;
-        day++
-    ) {
+    for(let day=1;day<=total;day++){
 
         const date =
-            new Date(
-                year,
-                month,
-                day
-            );
-
+            new Date(year,month,day);
 
         const key =
             dateKey(date);
 
-
         const tasks =
-            getDailyTasks(
-                date
-            );
-
+            getDailyTasks(date);
 
         const cell =
-            document.createElement(
-                "div"
-            );
-
+            document.createElement("div");
 
         cell.className =
             "calendar-day";
 
+        if(sameDate(date,realToday))
+            cell.classList.add("today");
 
-        if (
-            dateKey(date) ===
-            dateKey(realToday)
-        ) {
-
-            cell.classList.add(
-                "today"
-            );
-
-        }
-
-
-        if (
-            dateKey(date) ===
-            dateKey(selectedDate)
-        ) {
-
-            cell.classList.add(
-                "selected"
-            );
-
-        }
+        if(sameDate(date,selectedDate))
+            cell.classList.add("selected");
 
 
         const header =
-            document.createElement(
-                "div"
-            );
-
+            document.createElement("div");
 
         header.className =
             "date-header";
 
 
-        header.innerHTML =
-            `<span>${day}</span>`;
+        const number =
+            document.createElement("span");
+
+        number.textContent=day;
+
+        header.appendChild(number);
 
 
-        if (
-            dateKey(date) ===
-            dateKey(realToday)
-        ) {
+        if(sameDate(date,realToday)){
 
-            header.innerHTML +=
-                `<span class="today-label">TODAY</span>`;
+            const label =
+                document.createElement("span");
 
+            label.className="today-label";
+            label.textContent="TODAY";
+
+            header.appendChild(label);
         }
 
 
         const taskArea =
-            document.createElement(
-                "div"
+            document.createElement("div");
+
+        taskArea.className="day-tasks";
+
+
+        tasks.forEach((task,index)=>{
+
+            const row =
+                document.createElement("div");
+
+            row.className="task-row";
+
+            if(task.completed)
+                row.classList.add("completed");
+
+
+            const checkbox =
+                document.createElement("input");
+
+            checkbox.type="checkbox";
+            checkbox.className="task-check";
+            checkbox.checked=task.completed;
+
+
+            const input =
+                document.createElement("input");
+
+            input.type="text";
+            input.className="task-input";
+            input.value=task.text;
+            input.placeholder="task...";
+
+
+            checkbox.addEventListener(
+                "change",
+                event=>{
+
+                    event.stopPropagation();
+
+                    tasks[index].completed =
+                        checkbox.checked;
+
+                    saveData();
+                    renderAll();
+                }
             );
 
 
-        taskArea.className =
-            "day-tasks";
+            input.addEventListener(
+                "input",
+                ()=>{
 
+                    tasks[index].text =
+                        input.value;
 
-        tasks.forEach(
-            (
-                task,
-                index
-            ) => {
-
-                taskArea.appendChild(
-
-                    createDesktopTask(
-                        key,
-                        index,
-                        task
-                    )
-
-                );
-
-            }
-        );
-
-
-        const addButton =
-            document.createElement(
-                "button"
+                    saveData();
+                }
             );
 
 
-        addButton.className =
-            "add-task";
+            input.addEventListener(
+                "click",
+                event=>{
+                    event.stopPropagation();
+                }
+            );
 
 
-        addButton.textContent =
-            "+ add task";
+            row.append(
+                checkbox,
+                input
+            );
+
+            taskArea.appendChild(row);
+        });
 
 
-        addButton.addEventListener(
+        const add =
+            document.createElement("button");
+
+        add.className="add-task";
+        add.textContent="+ add task";
+
+
+        add.addEventListener(
             "click",
-            event => {
+            event=>{
 
                 event.stopPropagation();
 
-
                 tasks.push({
-
-                    text: "",
-
-                    completed: false
-
+                    text:"",
+                    completed:false
                 });
 
-
                 saveData();
-
-
-                renderDesktopCalendar();
-
+                renderAll();
             }
         );
 
 
-        taskArea.appendChild(
-            addButton
-        );
+        taskArea.appendChild(add);
 
 
-        const progress =
-            calculateProgress(
-                tasks
-            );
+        const progressWrap =
+            document.createElement("div");
+
+        progressWrap.className="day-progress";
 
 
-        const progressContainer =
-            document.createElement(
-                "div"
-            );
+        const bar =
+            document.createElement("div");
 
-
-        progressContainer.className =
-            "day-progress";
-
-
-        const progressBar =
-            document.createElement(
-                "div"
-            );
-
-
-        progressBar.className =
-            "day-progress-bar";
+        bar.className="day-progress-bar";
 
 
         const fill =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
-
-        fill.className =
-            "day-progress-fill";
-
+        fill.className="day-progress-fill";
 
         fill.style.width =
-            progress + "%";
+            progress(tasks)+"%";
 
 
-        progressBar.appendChild(
-            fill
-        );
+        bar.appendChild(fill);
+        progressWrap.appendChild(bar);
 
 
-        progressContainer.appendChild(
-            progressBar
-        );
-
-
-        cell.appendChild(
-            header
-        );
-
-
-        cell.appendChild(
-            taskArea
-        );
-
-
-        cell.appendChild(
-            progressContainer
+        cell.append(
+            header,
+            taskArea,
+            progressWrap
         );
 
 
         cell.addEventListener(
             "click",
-            () => {
-
+            ()=>{
                 selectedDate =
-                    new Date(
-                        date
-                    );
-
+                    new Date(date);
 
                 renderAll();
-
             }
         );
 
 
-        grid.appendChild(
-            cell
-        );
-
+        grid.appendChild(cell);
     }
-
 }
 
 
-function createDesktopTask(
-    key,
-    index,
-    task
-) {
+/* MOBILE */
 
-    const row =
-        document.createElement(
-            "div"
-        );
-
-
-    row.className =
-        "task-row";
-
-
-    if (
-        task.completed
-    ) {
-
-        row.classList.add(
-            "completed"
-        );
-
-    }
-
-
-    const checkbox =
-        document.createElement(
-            "input"
-        );
-
-
-    checkbox.type =
-        "checkbox";
-
-
-    checkbox.className =
-        "task-check";
-
-
-    checkbox.checked =
-        task.completed;
-
-
-    const input =
-        document.createElement(
-            "input"
-        );
-
-
-    input.className =
-        "task-input";
-
-
-    input.value =
-        task.text;
-
-
-    input.placeholder =
-        "task...";
-
-
-    checkbox.addEventListener(
-        "change",
-        event => {
-
-            event.stopPropagation();
-
-
-            data.daily[
-                key
-            ][
-                index
-            ].completed =
-                checkbox.checked;
-
-
-            saveData();
-
-
-            renderAll();
-
-        }
-    );
-
-
-    input.addEventListener(
-        "click",
-        event => {
-
-            event.stopPropagation();
-
-        }
-    );
-
-
-    input.addEventListener(
-        "input",
-        () => {
-
-            data.daily[
-                key
-            ][
-                index
-            ].text =
-                input.value;
-
-
-            saveData();
-
-        }
-    );
-
-
-    row.appendChild(
-        checkbox
-    );
-
-
-    row.appendChild(
-        input
-    );
-
-
-    return row;
-
-}
-
-
-/* =====================================================
-   MOBILE DAY VIEW
-   ===================================================== */
-
-
-function renderMobileDay() {
+function renderMobile(){
 
     const date =
         selectedDate;
+
+    const datePicker =
+        document.getElementById(
+            "datePicker"
+        );
+
+    if(datePicker){
+        datePicker.value =
+            dateKey(date);
+    }
 
 
     document.getElementById(
         "mobileDate"
     ).textContent =
-
         date.toLocaleDateString(
             "en-US",
             {
-                month: "short",
-                day: "numeric"
+                month:"short",
+                day:"numeric"
             }
         );
 
@@ -3164,11 +1804,10 @@ function renderMobileDay() {
     document.getElementById(
         "mobileWeekday"
     ).textContent =
-
         date.toLocaleDateString(
             "en-US",
             {
-                weekday: "long"
+                weekday:"long"
             }
         );
 
@@ -3176,279 +1815,158 @@ function renderMobileDay() {
     document.getElementById(
         "mobileDayTitle"
     ).textContent =
-
         date.toLocaleDateString(
             "en-US",
             {
-                weekday: "long"
+                weekday:"long"
             }
         );
 
 
     const tasks =
-        getDailyTasks(
-            date
-        );
-
+        getDailyTasks(date);
 
     const container =
         document.getElementById(
             "mobileTasks"
         );
 
-
-    container.innerHTML =
-        "";
+    container.innerHTML="";
 
 
-    tasks.forEach(
-        (
-            task,
-            index
-        ) => {
+    tasks.forEach((task,index)=>{
 
-            const row =
-                document.createElement(
-                    "div"
-                );
+        const row =
+            document.createElement("div");
 
+        row.className="mobile-task";
 
-            row.className =
-                "mobile-task";
+        if(task.completed)
+            row.classList.add("completed");
 
 
-            if (
-                task.completed
-            ) {
+        const checkbox =
+            document.createElement("input");
 
-                row.classList.add(
-                    "completed"
-                );
+        checkbox.type="checkbox";
+        checkbox.checked=task.completed;
 
+
+        const input =
+            document.createElement("input");
+
+        input.type="text";
+        input.value=task.text;
+        input.placeholder="Add a task...";
+
+
+        checkbox.addEventListener(
+            "change",
+            ()=>{
+                tasks[index].completed =
+                    checkbox.checked;
+
+                saveData();
+                renderAll();
             }
+        );
 
 
-            const checkbox =
-                document.createElement(
-                    "input"
-                );
+        input.addEventListener(
+            "input",
+            ()=>{
+                tasks[index].text =
+                    input.value;
+
+                saveData();
+                updateMobileProgress();
+            }
+        );
 
 
-            checkbox.type =
-                "checkbox";
+        row.append(
+            checkbox,
+            input
+        );
+
+        container.appendChild(row);
+    });
 
 
-            checkbox.checked =
-                task.completed;
-
-
-            const input =
-                document.createElement(
-                    "input"
-                );
-
-
-            input.type =
-                "text";
-
-
-            input.value =
-                task.text;
-
-
-            input.placeholder =
-                "Add a task...";
-
-
-            checkbox.addEventListener(
-                "change",
-                () => {
-
-                    tasks[
-                        index
-                    ].completed =
-                        checkbox.checked;
-
-
-                    saveData();
-
-
-                    renderAll();
-
-                }
-            );
-
-
-            input.addEventListener(
-                "input",
-                () => {
-
-                    tasks[
-                        index
-                    ].text =
-                        input.value;
-
-
-                    saveData();
-
-
-                    updateProgress();
-
-                }
-            );
-
-
-            row.appendChild(
-                checkbox
-            );
-
-
-            row.appendChild(
-                input
-            );
-
-
-            container.appendChild(
-                row
-            );
-
-        }
-    );
-
-
-    updateProgress();
-
+    updateMobileProgress();
 }
 
 
-/* =====================================================
-   PROGRESS
-   ===================================================== */
+function updateMobileProgress(){
 
-
-function updateProgress() {
-
-    const tasks =
-        getDailyTasks(
-            selectedDate
+    const value =
+        progress(
+            getDailyTasks(selectedDate)
         );
 
 
-    const daily =
-        calculateProgress(
-            tasks
+    const text =
+        document.getElementById(
+            "mobileProgress"
+        );
+
+    const fill =
+        document.getElementById(
+            "mobileProgressFill"
+        );
+
+    const circle =
+        document.getElementById(
+            "mobileDayProgress"
         );
 
 
-    document.getElementById(
-        "mobileProgress"
-    ).textContent =
-        daily + "%";
+    if(text)
+        text.textContent =
+            value+"%";
 
+    if(fill)
+        fill.style.width =
+            value+"%";
 
-    document.getElementById(
-        "mobileProgressFill"
-    ).style.width =
-        daily + "%";
-
-
-    const year =
-        selectedDate.getFullYear();
-
-
-    const month =
-        selectedDate.getMonth();
-
-
-    let total = 0;
-
-    let completed = 0;
-
-
-    for (
-        let day = 1;
-        day <=
-        daysInMonth(
-            year,
-            month
+    if(circle)
+        circle.style.setProperty(
+            "--mobile-progress",
+            value+"%"
         );
-        day++
-    ) {
-
-        const date =
-            new Date(
-                year,
-                month,
-                day
-            );
+}
 
 
-        const dayTasks =
-            data.daily[
-                dateKey(date)
-            ] || [];
+/* DESKTOP PROGRESS */
 
+function updateDesktopProgress(){
 
-        dayTasks.forEach(
-            task => {
-
-                if (
-                    task.text.trim()
-                ) {
-
-                    total++;
-
-
-                    if (
-                        task.completed
-                    ) {
-
-                        completed++;
-
-                    }
-
-                }
-
-            }
-        );
-
-    }
-
-
-    const monthly =
-        total === 0
-
-            ? 0
-
-            : Math.round(
-                completed /
-                total *
-                100
-            );
+    const p =
+        monthlyProgress(selectedDate);
 
 
     document.getElementById(
         "desktopProgress"
     ).textContent =
-        monthly + "%";
+        p.percentage+"%";
 
 
     document.getElementById(
         "desktopTotal"
     ).textContent =
-        total;
+        p.total;
 
 
     document.getElementById(
         "desktopDone"
     ).textContent =
-        completed;
+        p.done;
 
 
     document.getElementById(
         "desktopLeft"
     ).textContent =
-        total - completed;
+        p.left;
 
 
     document
@@ -3457,46 +1975,109 @@ function updateProgress() {
         )
         .style.setProperty(
             "--progress",
-            monthly + "%"
+            p.percentage+"%"
         );
-
 }
 
 
-/* =====================================================
-   LIST RENDERING
-   ===================================================== */
+/* LISTS */
+
+function renderList(id,list){
+
+    const container =
+        document.getElementById(id);
+
+    if(!container) return;
+
+    container.innerHTML="";
 
 
-function renderLists() {
+    list.forEach((item,index)=>{
 
-    const monthly =
-        getMonthlyData(
-            selectedDate
+        const row =
+            document.createElement("div");
+
+        row.className="list-item";
+
+        if(item.completed)
+            row.classList.add("completed");
+
+
+        const checkbox =
+            document.createElement("input");
+
+        checkbox.type="checkbox";
+        checkbox.className="list-check";
+        checkbox.checked=item.completed;
+
+
+        const input =
+            document.createElement("input");
+
+        input.type="text";
+        input.className="list-input";
+        input.value=item.text;
+        input.placeholder="Add something...";
+
+
+        checkbox.addEventListener(
+            "change",
+            ()=>{
+                item.completed =
+                    checkbox.checked;
+
+                saveData();
+                renderLists();
+            }
         );
+
+
+        input.addEventListener(
+            "input",
+            ()=>{
+                item.text =
+                    input.value;
+
+                saveData();
+            }
+        );
+
+
+        row.append(
+            checkbox,
+            input
+        );
+
+        container.appendChild(row);
+    });
+}
+
+
+function renderLists(){
+
+    const month =
+        getMonthly(selectedDate);
 
 
     renderList(
         "desktopGoals",
-        monthly.goals
+        month.goals
     );
-
 
     renderList(
         "mobileGoals",
-        monthly.goals
+        month.goals
     );
 
 
     renderList(
         "desktopTodo",
-        monthly.todo
+        month.todo
     );
-
 
     renderList(
         "mobileTodo",
-        monthly.todo
+        month.todo
     );
 
 
@@ -3504,7 +2085,6 @@ function renderLists() {
         "desktopPersonal",
         data.personal
     );
-
 
     renderList(
         "mobilePersonal",
@@ -3517,7 +2097,6 @@ function renderLists() {
         data.career
     );
 
-
     renderList(
         "mobileCareer",
         data.career
@@ -3527,318 +2106,178 @@ function renderLists() {
     document.getElementById(
         "drawerMonth"
     ).textContent =
-
         selectedDate.toLocaleDateString(
             "en-US",
             {
-                month: "long",
-                year: "numeric"
+                month:"long",
+                year:"numeric"
             }
         );
-
 }
 
 
-function renderList(
-    elementId,
-    list
-) {
+/* ADD LIST */
 
-    const container =
-        document.getElementById(
-            elementId
-        );
+function addList(type){
 
+    if(type==="goals")
+        getMonthly(selectedDate)
+            .goals
+            .push({
+                text:"",
+                completed:false
+            });
 
-    container.innerHTML =
-        "";
+    if(type==="todo")
+        getMonthly(selectedDate)
+            .todo
+            .push({
+                text:"",
+                completed:false
+            });
 
+    if(type==="personal")
+        data.personal.push({
+            text:"",
+            completed:false
+        });
 
-    list.forEach(
-        (
-            item,
-            index
-        ) => {
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "list-item";
-
-
-            if (
-                item.completed
-            ) {
-
-                row.classList.add(
-                    "completed"
-                );
-
-            }
+    if(type==="career")
+        data.career.push({
+            text:"",
+            completed:false
+        });
 
 
-            const checkbox =
-                document.createElement(
-                    "input"
-                );
-
-
-            checkbox.type =
-                "checkbox";
-
-
-            checkbox.className =
-                "list-check";
-
-
-            checkbox.checked =
-                item.completed;
-
-
-            const input =
-                document.createElement(
-                    "input"
-                );
-
-
-            input.type =
-                "text";
-
-
-            input.className =
-                "list-input";
-
-
-            input.value =
-                item.text;
-
-
-            input.placeholder =
-                "Add something...";
-
-
-            checkbox.addEventListener(
-                "change",
-                () => {
-
-                    item.completed =
-                        checkbox.checked;
-
-
-                    saveData();
-
-
-                    renderLists();
-
-                }
-            );
-
-
-            input.addEventListener(
-                "input",
-                () => {
-
-                    item.text =
-                        input.value;
-
-
-                    saveData();
-
-                }
-            );
-
-
-            row.appendChild(
-                checkbox
-            );
-
-
-            row.appendChild(
-                input
-            );
-
-
-            container.appendChild(
-                row
-            );
-
-        }
-    );
-
+    saveData();
+    renderLists();
 }
 
 
-/* =====================================================
-   ADD LIST ITEMS
-   ===================================================== */
+document
+    .querySelectorAll(".add-list")
+    .forEach(button=>{
 
+        button.addEventListener(
+            "click",
+            event=>{
+
+                event.stopPropagation();
+
+                addList(
+                    button.dataset.list
+                );
+            }
+        );
+    });
+
+
+/* MONTH NAVIGATION */
 
 document
-    .querySelectorAll(
-        ".add-list"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const type =
-                        button.dataset.list;
-
-
-                    if (
-                        type === "goals"
-                    ) {
-
-                        getMonthlyData(
-                            selectedDate
-                        )
-                        .goals
-                        .push({
-
-                            text: "",
-
-                            completed: false
-
-                        });
-
-                    }
-
-
-                    if (
-                        type === "todo"
-                    ) {
-
-                        getMonthlyData(
-                            selectedDate
-                        )
-                        .todo
-                        .push({
-
-                            text: "",
-
-                            completed: false
-
-                        });
-
-                    }
-
-
-                    if (
-                        type === "personal"
-                    ) {
-
-                        data.personal.push({
-
-                            text: "",
-
-                            completed: false
-
-                        });
-
-                    }
-
-
-                    if (
-                        type === "career"
-                    ) {
-
-                        data.career.push({
-
-                            text: "",
-
-                            completed: false
-
-                        });
-
-                    }
-
-
-                    saveData();
-
-
-                    renderLists();
-
-                }
-            );
-
-        }
-    );
-
-
-/* =====================================================
-   MOBILE DAY NAVIGATION
-   ===================================================== */
-
-
-document
-    .getElementById(
-        "previousDay"
-    )
+    .getElementById("previousMonth")
     .addEventListener(
         "click",
-        () => {
-
-            selectedDate.setDate(
-                selectedDate.getDate() - 1
-            );
-
-
-            renderAll();
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "nextDay"
-    )
-    .addEventListener(
-        "click",
-        () => {
-
-            selectedDate.setDate(
-                selectedDate.getDate() + 1
-            );
-
-
-            renderAll();
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "mobileToday"
-    )
-    .addEventListener(
-        "click",
-        () => {
+        ()=>{
 
             selectedDate =
                 new Date(
-                    realToday
+                    selectedDate.getFullYear(),
+                    selectedDate.getMonth()-1,
+                    1
                 );
 
-
             renderAll();
-
         }
     );
 
 
-/* =====================================================
-   DATE PICKER
-   ===================================================== */
+document
+    .getElementById("nextMonth")
+    .addEventListener(
+        "click",
+        ()=>{
 
+            selectedDate =
+                new Date(
+                    selectedDate.getFullYear(),
+                    selectedDate.getMonth()+1,
+                    1
+                );
+
+            renderAll();
+        }
+    );
+
+
+document
+    .getElementById("todayButton")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            selectedDate =
+                new Date(realToday);
+
+            renderAll();
+        }
+    );
+
+
+/* MOBILE DAY NAVIGATION */
+
+document
+    .getElementById("previousDay")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            selectedDate.setDate(
+                selectedDate.getDate()-1
+            );
+
+            renderAll();
+        }
+    );
+
+
+document
+    .getElementById("nextDay")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            selectedDate.setDate(
+                selectedDate.getDate()+1
+            );
+
+            renderAll();
+        }
+    );
+
+
+document
+    .getElementById("mobileToday")
+    .addEventListener(
+        "click",
+        ()=>{
+
+            selectedDate =
+                new Date(realToday);
+
+            renderAll();
+        }
+    );
+
+
+/* =========================================================
+   CHOOSE DATE
+   IMPORTANT:
+   No showPicker()
+   No .click()
+   No display:none
+   The native input itself receives the tap.
+   ========================================================= */
 
 const datePicker =
     document.getElementById(
@@ -3846,238 +2285,80 @@ const datePicker =
     );
 
 
-document
-    .getElementById(
-        "chooseDate"
-    )
-    .addEventListener(
-        "click",
-        () => {
-
-            datePicker.value =
-                dateKey(
-                    selectedDate
-                );
-
-
-            datePicker.showPicker
-                ? datePicker.showPicker()
-                : datePicker.click();
-
-        }
-    );
-
-
 datePicker.addEventListener(
     "change",
-    () => {
+    ()=>{
 
-        if (
-            !datePicker.value
-        ) {
-
+        if(!datePicker.value)
             return;
 
-        }
 
-
-        const parts =
-            datePicker.value.split(
-                "-"
-            );
+        const [
+            year,
+            month,
+            day
+        ] =
+            datePicker.value.split("-");
 
 
         selectedDate =
             new Date(
-                Number(parts[0]),
-                Number(parts[1]) - 1,
-                Number(parts[2])
+                Number(year),
+                Number(month)-1,
+                Number(day)
             );
 
 
         renderAll();
-
     }
 );
 
 
-/* =====================================================
-   MONTH NAVIGATION DESKTOP
-   ===================================================== */
-
+/* MOBILE ADD TASK */
 
 document
-    .getElementById(
-        "previousMonth"
-    )
+    .getElementById("mobileAddTask")
     .addEventListener(
         "click",
-        () => {
+        ()=>{
 
-            selectedDate =
-                new Date(
-                    selectedDate.getFullYear(),
-                    selectedDate.getMonth() - 1,
-                    1
-                );
-
-
-            renderAll();
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "nextMonth"
-    )
-    .addEventListener(
-        "click",
-        () => {
-
-            selectedDate =
-                new Date(
-                    selectedDate.getFullYear(),
-                    selectedDate.getMonth() + 1,
-                    1
-                );
-
-
-            renderAll();
-
-        }
-    );
-
-
-document
-    .getElementById(
-        "todayButton"
-    )
-    .addEventListener(
-        "click",
-        () => {
-
-            selectedDate =
-                new Date(
-                    realToday
-                );
-
-
-            renderAll();
-
-        }
-    );
-
-
-/* =====================================================
-   MOBILE ADD TASK
-   ===================================================== */
-
-
-document
-    .getElementById(
-        "mobileAddTask"
-    )
-    .addEventListener(
-        "click",
-        () => {
-
-            const tasks =
-                getDailyTasks(
-                    selectedDate
-                );
-
-
-            tasks.push({
-
-                text: "",
-
-                completed: false
-
+            getDailyTasks(
+                selectedDate
+            ).push({
+                text:"",
+                completed:false
             });
 
-
             saveData();
-
-
             renderAll();
-
         }
     );
 
 
-/* =====================================================
-   NOTES
-   ===================================================== */
-
+/* NOTES */
 
 const notes =
-    document.getElementById(
-        "notes"
-    );
-
-
-const mobileNotes =
-    document.getElementById(
-        "mobileNotes"
-    );
-
+    document.getElementById("notes");
 
 notes.value =
     data.notes || "";
 
 
-mobileNotes.value =
-    data.notes || "";
-
-
 notes.addEventListener(
     "input",
-    () => {
-
+    ()=>{
         data.notes =
             notes.value;
 
-
-        mobileNotes.value =
-            notes.value;
-
-
         saveData();
-
     }
 );
 
 
-mobileNotes.addEventListener(
-    "input",
-    () => {
-
-        data.notes =
-            mobileNotes.value;
-
-
-        notes.value =
-            mobileNotes.value;
-
-
-        saveData();
-
-    }
-);
-
-
-/* =====================================================
-   DRAWER
-   ===================================================== */
-
+/* DRAWER */
 
 const drawer =
-    document.getElementById(
-        "drawer"
-    );
-
+    document.getElementById("drawer");
 
 const overlay =
     document.getElementById(
@@ -4085,38 +2366,21 @@ const overlay =
     );
 
 
-function openDrawer() {
-
-    drawer.classList.add(
-        "open"
-    );
-
-
-    overlay.classList.add(
-        "open"
-    );
-
+function openDrawer(){
+    drawer.classList.add("open");
+    overlay.classList.add("open");
+    document.body.style.overflow="hidden";
 }
 
-
-function closeDrawer() {
-
-    drawer.classList.remove(
-        "open"
-    );
-
-
-    overlay.classList.remove(
-        "open"
-    );
-
+function closeDrawer(){
+    drawer.classList.remove("open");
+    overlay.classList.remove("open");
+    document.body.style.overflow="";
 }
 
 
 document
-    .getElementById(
-        "openDrawer"
-    )
+    .getElementById("openDrawer")
     .addEventListener(
         "click",
         openDrawer
@@ -4124,9 +2388,7 @@ document
 
 
 document
-    .getElementById(
-        "closeDrawer"
-    )
+    .getElementById("closeDrawer")
     .addEventListener(
         "click",
         closeDrawer
@@ -4139,97 +2401,97 @@ overlay.addEventListener(
 );
 
 
-/* =====================================================
-   SWIPE
-   ===================================================== */
+document.addEventListener(
+    "keydown",
+    event=>{
 
-let touchStartX =
-    0;
+        if(event.key==="Escape")
+            closeDrawer();
+    }
+);
 
 
-let touchEndX =
-    0;
+/* SWIPE MOBILE */
+
+let touchStartX=0;
+let touchStartY=0;
 
 
 document.addEventListener(
     "touchstart",
-    event => {
+    event=>{
 
         touchStartX =
             event.changedTouches[0].screenX;
 
+        touchStartY =
+            event.changedTouches[0].screenY;
     },
-    {
-        passive: true
-    }
+    {passive:true}
 );
 
 
 document.addEventListener(
     "touchend",
-    event => {
+    event=>{
 
-        touchEndX =
-            event.changedTouches[0].screenX;
-
-
-        const difference =
-            touchEndX -
-            touchStartX;
-
-
-        if (
-            Math.abs(
-                difference
-            ) < 60
-        ) {
-
+        if(window.innerWidth>768)
             return;
 
+
+        const endX =
+            event.changedTouches[0].screenX;
+
+        const endY =
+            event.changedTouches[0].screenY;
+
+
+        const dx =
+            endX-touchStartX;
+
+        const dy =
+            endY-touchStartY;
+
+
+        if(
+            Math.abs(dx)<60 ||
+            Math.abs(dx)<Math.abs(dy)
+        ){
+            return;
         }
 
 
-        if (
-            difference < 0
-        ) {
+        if(dx<0){
 
             selectedDate.setDate(
-                selectedDate.getDate() + 1
+                selectedDate.getDate()+1
             );
 
-        } else {
+        }else{
 
             selectedDate.setDate(
-                selectedDate.getDate() - 1
+                selectedDate.getDate()-1
             );
-
         }
 
 
         renderAll();
-
     },
-    {
-        passive: true
-    }
+    {passive:true}
 );
 
 
-/* =====================================================
-   RENDER EVERYTHING
-   ===================================================== */
+/* RENDER */
 
-
-function renderAll() {
+function renderAll(){
 
     const month =
         selectedDate.toLocaleDateString(
             "en-US",
             {
-                month: "long"
+                month:"long"
             }
         );
-
 
     const year =
         selectedDate.getFullYear();
@@ -4237,38 +2499,29 @@ function renderAll() {
 
     document.getElementById(
         "monthName"
-    ).textContent =
-        month;
+    ).textContent=month;
 
 
     document.getElementById(
         "yearName"
-    ).textContent =
-        year;
+    ).textContent=year;
 
 
-    renderDesktopCalendar();
-
-    renderMobileDay();
-
+    renderCalendar();
+    renderMobile();
     renderLists();
-
-    updateProgress();
+    updateDesktopProgress();
+    updateMobileProgress();
 
     saveData();
-
 }
 
 
-/* =====================================================
-   START
-   ===================================================== */
+/* INITIAL */
 
 renderAll();
 
 </script>
 
-
 </body>
-
 </html>
