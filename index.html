@@ -426,8 +426,19 @@ button{cursor:pointer}
     bottom:0;
     z-index:60;
     width:min(330px,88vw);
+
+    height:100dvh;
+    max-height:100dvh;
+    
     padding:18px;
+    padding-bottom:40px;
+    
     overflow-y:auto;
+    overflow-x:hidden;
+
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
+
     background:var(--cream);
     transform:translateX(-105%);
     transition:transform .25s ease;
@@ -564,6 +575,19 @@ button{cursor:pointer}
         overflow-x:hidden;
     }
 
+    brand p{
+        max-width:none;
+        font-size:9px;
+    }
+
+    .brand .greeting{
+        max-width:100%;
+        width:100%;
+        line-height:1.5;
+    }
+
+}
+
     /* DESKTOP MONTH NAVIGATION MUST DISAPPEAR */
     .month-navigation{
         display:none !important;
@@ -590,6 +614,10 @@ button{cursor:pointer}
         flex:1;
     }
 
+    .mobile-menu-button{
+    order:-1;
+    }
+
     .logo{
         width:42px;
         height:42px;
@@ -604,8 +632,14 @@ button{cursor:pointer}
     }
 
     .brand p{
-        max-width:180px;
+        margin: 4px 0 0;
         font-size:9px;
+    }
+    
+    .brand .greeting{
+    max-width:100%;
+    width:100%;
+    line-height:1.5;
     }
 
     .mobile-menu-button{
@@ -893,6 +927,12 @@ button{cursor:pointer}
 
     <!-- HEADER -->
     <header class="header">
+
+         <button
+            class="mobile-menu-button"
+            id="openDrawer"
+            aria-label="Open menu"
+        >☰</button>
         
         <div class="brand">
             <div class="logo">M</div>
@@ -929,12 +969,6 @@ button{cursor:pointer}
             >Today</button>
 
         </div>
-
-        <button
-            class="mobile-menu-button"
-            id="openDrawer"
-            aria-label="Open menu"
-        >☰</button>
 
     </header>
 
