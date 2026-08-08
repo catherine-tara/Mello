@@ -833,13 +833,14 @@ button{cursor:pointer}
 
     <!-- HEADER -->
     <header class="header">
-
+        
         <div class="brand">
             <div class="logo">M</div>
 
             <div>
                 <h1>Mello</h1>
                 <p>A soft space to plan your life.</p>
+                <p class="greeting" id="greeting">Hello!</p>
             </div>
         </div>
 
@@ -1175,7 +1176,7 @@ button{cursor:pointer}
     <footer>
 
         <span>
-            Mello — a soft space to plan your life.
+            Made for softer, more intentional days.
         </span>
 
         <span>
@@ -1305,6 +1306,43 @@ button{cursor:pointer}
 
     </section>
 
+    <section class="drawer-section settings-section">
+
+    <div class="drawer-section-title">
+        <span>⚙️ SETTINGS</span>
+    </div>
+
+    <div class="settings-content">
+
+        <label for="userName">
+            Your Name
+        </label>
+
+        <input
+            type="text"
+            id="userName"
+            placeholder="Enter your name"
+            maxlength="30"
+        >
+
+        <button
+            id="saveName"
+            class="settings-button"
+        >
+            Save Name
+        </button>
+
+        <button
+            id="resetData"
+            class="reset-button"
+        >
+            🗑️ Reset All Data
+        </button>
+
+    </div>
+
+</section>
+
 </aside>
 
 
@@ -1320,7 +1358,8 @@ let data = {
     monthly:{},
     personal:[],
     career:[],
-    notes:""
+    notes:"",
+    userName:""
 };
 
 try{
