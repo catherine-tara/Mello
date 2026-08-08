@@ -1,37 +1,30 @@
 /* =========================================================
-   MELLO — STYLE
+   MELLO — FULL STYLE
    ========================================================= */
 
 :root {
-    --pink: #f3c8d2;
-    --pink-soft: #fdf0f3;
-    --pink-deep: #d991a5;
+    --pink: #f2c7d1;
+    --pink-light: #fdf0f3;
+    --pink-dark: #d58fa3;
 
-    --mint: #c2e5da;
-    --mint-soft: #edf8f4;
-    --mint-deep: #72ad9a;
+    --mint: #bfe3d7;
+    --mint-light: #edf8f4;
+    --mint-dark: #70aa97;
 
-    --yellow: #f6e4a5;
-    --yellow-soft: #fff9df;
+    --yellow: #f7e5a7;
+    --yellow-light: #fff9df;
 
-    --cream: #fffaf5;
+    --cream: #fffaf4;
     --white: #fffefd;
 
-    --text: #5f5049;
-    --text-soft: #8f7d74;
-    --text-faint: #b6a59d;
-
-    --line: #eadbd4;
+    --text: #62534c;
+    --muted: #a08e85;
+    --border: #eadbd3;
 
     --shadow:
-        0 8px 24px rgba(91, 68, 58, 0.06);
+        0 8px 25px rgba(90, 70, 60, .07);
 
-    --shadow-hover:
-        0 12px 30px rgba(91, 68, 58, 0.10);
-
-    --radius-lg: 20px;
-    --radius-md: 15px;
-    --radius-sm: 11px;
+    --radius: 18px;
 }
 
 
@@ -45,34 +38,35 @@
 
 html {
     scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
 
     background:
         radial-gradient(
-            circle at 8% 8%,
-            rgba(243, 200, 210, .32),
-            transparent 23%
+            circle at 5% 5%,
+            rgba(242,199,209,.35),
+            transparent 25%
         ),
         radial-gradient(
-            circle at 92% 12%,
-            rgba(194, 229, 218, .30),
-            transparent 23%
+            circle at 95% 15%,
+            rgba(191,227,215,.35),
+            transparent 25%
         ),
         var(--cream);
 
     color: var(--text);
 
     font-family:
-        "DM Sans",
-        "Segoe UI",
         Arial,
+        Helvetica,
         sans-serif;
-
-    -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -85,21 +79,14 @@ button {
     cursor: pointer;
 }
 
-button,
-input,
-textarea {
-    outline: none;
-}
-
 
 /* =========================================================
    APP
    ========================================================= */
 
 .app {
-    width: min(1480px, 100%);
-    margin: 0 auto;
-
+    width: min(1500px, 100%);
+    margin: auto;
     padding: 24px;
 }
 
@@ -110,16 +97,12 @@ textarea {
 
 .header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 
-    gap: 24px;
-
+    gap: 20px;
     margin-bottom: 20px;
 }
-
-
-/* ---------- Brand ---------- */
 
 .brand {
     display: flex;
@@ -131,26 +114,18 @@ textarea {
     width: 48px;
     height: 48px;
 
-    display: grid;
-    place-items: center;
+    flex: 0 0 48px;
 
     border-radius: 16px;
 
-    background:
-        linear-gradient(
-            145deg,
-            #f5d3dc,
-            var(--pink)
-        );
-
+    background: var(--pink);
     color: white;
 
-    font-family:
-        Georgia,
-        serif;
+    display: grid;
+    place-items: center;
 
-    font-size: 29px;
-    font-weight: 600;
+    font-family: Georgia, serif;
+    font-size: 30px;
 
     box-shadow: var(--shadow);
 }
@@ -158,95 +133,62 @@ textarea {
 .brand h1 {
     margin: 0;
 
-    color: var(--text);
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
+    font-family: Georgia, serif;
     font-size: 30px;
-    font-weight: 600;
-
-    letter-spacing: -.4px;
 }
 
 .brand p {
-    margin: 3px 0 0;
+    margin: 4px 0 0;
 
-    color: var(--text-soft);
+    color: var(--muted);
 
-    font-size: 10px;
+    font-size: 11px;
 }
 
 
 /* =========================================================
-   DESKTOP MONTH NAVIGATION
+   MONTH NAVIGATION
    ========================================================= */
 
 .month-navigation {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 8px;
 }
 
 .nav-button {
     width: 38px;
     height: 38px;
 
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    border-radius: 12px;
 
-    background: rgba(255,255,255,.8);
-
+    background: var(--white);
     color: var(--text);
 
-    font-size: 23px;
-    line-height: 1;
-
-    transition:
-        transform .15s ease,
-        border-color .15s ease,
-        background .15s ease;
+    font-size: 22px;
 }
 
 .nav-button:hover {
-    border-color: var(--pink-deep);
-
-    background: white;
-
-    transform: translateY(-1px);
+    border-color: var(--pink-dark);
 }
 
 .month-title {
-    min-width: 145px;
-
+    min-width: 150px;
     text-align: center;
 }
 
 .month-title h2 {
     margin: 0;
 
-    color: var(--text);
-
-    font-family:
-        Georgia,
-        serif;
-
+    font-family: Georgia, serif;
     font-size: 22px;
-    font-weight: 600;
 }
 
 .month-title span {
-    display: block;
-
-    margin-top: 2px;
-
-    color: var(--text-faint);
-
     font-size: 9px;
-
     letter-spacing: 2px;
+    color: var(--muted);
 }
 
 .today-button {
@@ -254,29 +196,18 @@ textarea {
 
     padding: 0 13px;
 
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    border-radius: 12px;
 
-    background: white;
-
+    background: var(--white);
     color: var(--text);
 
     font-size: 10px;
-
-    transition:
-        background .15s ease,
-        border-color .15s ease;
-}
-
-.today-button:hover {
-    background: var(--mint-soft);
-
-    border-color: var(--mint-deep);
 }
 
 
 /* =========================================================
-   DESKTOP MAIN LAYOUT
+   DESKTOP LAYOUT
    ========================================================= */
 
 .desktop-layout {
@@ -284,12 +215,10 @@ textarea {
 
     grid-template-columns:
         190px
-        minmax(580px, 1fr)
-        215px;
+        minmax(600px, 1fr)
+        210px;
 
     gap: 14px;
-
-    align-items: start;
 }
 
 .left-column,
@@ -301,48 +230,47 @@ textarea {
 
 
 /* =========================================================
-   GENERIC CARD
+   CARDS
    ========================================================= */
 
 .card {
     background:
-        rgba(255, 254, 253, .94);
+        rgba(255,254,253,.94);
 
     border:
-        1px solid var(--line);
+        1px solid var(--border);
 
     border-radius:
-        var(--radius-lg);
+        var(--radius);
 
     box-shadow:
         var(--shadow);
 
-    overflow: hidden;
+    overflow:
+        hidden;
 }
 
 .card-title {
     min-height: 40px;
 
+    padding: 0 13px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 13px;
-
     border-bottom:
-        1px solid var(--line);
+        1px solid var(--border);
 
-    color: var(--text-soft);
-
-    font-size: 8px;
+    font-size: 9px;
     font-weight: 700;
 
-    letter-spacing: 1.5px;
+    letter-spacing: 1.4px;
 }
 
 
 /* =========================================================
-   PROGRESS CARD
+   PROGRESS
    ========================================================= */
 
 .progress-card {
@@ -355,64 +283,60 @@ textarea {
 
     margin: 18px auto;
 
-    display: grid;
-    place-items: center;
-
     border-radius: 50%;
 
     background:
         conic-gradient(
-            var(--pink-deep)
+            var(--pink-dark)
             var(--progress, 0%),
-            #f0e5e0 0
+            #f0e4df 0
         );
+
+    display: grid;
+    place-items: center;
 }
 
 .progress-inner {
     width: 85px;
     height: 85px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
     border-radius: 50%;
 
-    background: var(--white);
+    background:
+        var(--white);
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
 }
 
 .progress-inner strong {
-    color: var(--text);
-
     font-size: 21px;
-    font-weight: 600;
 }
 
 .progress-inner span {
-    margin-top: 2px;
-
-    color: var(--text-faint);
-
-    font-size: 7px;
+    color: var(--muted);
+    font-size: 8px;
 }
-
-
-/* ---------- Stats ---------- */
 
 .stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
 
-    padding-top: 12px;
+    grid-template-columns:
+        repeat(3, 1fr);
 
     border-top:
-        1px solid var(--line);
+        1px solid var(--border);
+
+    padding-top: 12px;
 }
 
 .stats div {
     display: flex;
     flex-direction: column;
+
     align-items: center;
 
     gap: 3px;
@@ -420,13 +344,11 @@ textarea {
 
 .stats strong {
     font-size: 14px;
-    font-weight: 600;
 }
 
 .stats span {
-    color: var(--text-faint);
-
-    font-size: 7px;
+    color: var(--muted);
+    font-size: 8px;
 }
 
 
@@ -435,28 +357,23 @@ textarea {
    ========================================================= */
 
 .notes {
-    display: block;
-
     width: 100%;
-    min-height: 125px;
+    min-height: 130px;
 
     padding: 13px;
 
+    border: 0;
+    outline: 0;
+
     resize: vertical;
 
-    border: 0;
-
-    background: transparent;
+    background:
+        transparent;
 
     color: var(--text);
 
     font-size: 10px;
-
-    line-height: 1.7;
-}
-
-.notes::placeholder {
-    color: #c3b4ad;
+    line-height: 1.6;
 }
 
 
@@ -467,26 +384,18 @@ textarea {
 .quote {
     padding: 15px;
 
+    background:
+        var(--yellow-light);
+
     border:
-        1px solid #ede0b0;
+        1px solid #eadfae;
 
     border-radius:
-        var(--radius-lg);
-
-    background:
-        var(--yellow-soft);
-}
-
-.quote > span {
-    color: #c6ae3f;
-
-    font-size: 14px;
+        var(--radius);
 }
 
 .quote p {
-    margin: 7px 0 0;
-
-    color: #806f62;
+    margin: 6px 0 0;
 
     font-family:
         Georgia,
@@ -494,7 +403,7 @@ textarea {
 
     font-size: 12px;
 
-    line-height: 1.55;
+    line-height: 1.5;
 }
 
 
@@ -510,7 +419,7 @@ textarea {
     display: grid;
 
     grid-template-columns:
-        repeat(7, minmax(0, 1fr));
+        repeat(7, 1fr);
 
     gap: 5px;
 
@@ -525,22 +434,19 @@ textarea {
 
     border-radius: 10px;
 
-    color: var(--text-faint);
+    color: var(--muted);
 
-    font-size: 7px;
+    font-size: 8px;
     font-weight: 700;
 
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
 }
 
 .weekday:first-child,
 .weekday:last-child {
     background:
-        var(--pink-soft);
+        var(--pink-light);
 }
-
-
-/* ---------- Calendar day ---------- */
 
 .calendar-grid {
     display: grid;
@@ -552,81 +458,75 @@ textarea {
 }
 
 .calendar-day {
-    position: relative;
-
     min-height: 120px;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+    overflow:
+        hidden;
 
     display: flex;
     flex-direction: column;
 
-    overflow: hidden;
-
-    border:
-        1px solid var(--line);
-
-    border-radius:
-        var(--radius-sm);
-
-    background:
-        rgba(255,255,255,.88);
-
-    transition:
-        transform .15s ease,
-        box-shadow .15s ease,
-        border-color .15s ease;
-}
-
-.calendar-day:not(.empty-day):hover {
-    transform: translateY(-1px);
-
-    box-shadow:
-        var(--shadow-hover);
+    cursor: pointer;
 }
 
 .calendar-day.today {
     border:
-        2px solid var(--mint-deep);
+        2px solid var(--mint-dark);
 }
 
 .calendar-day.selected {
     box-shadow:
-        0 0 0 2px var(--pink-deep);
+        0 0 0 2px var(--pink-dark);
 }
 
 .empty-day {
-    min-height: 120px;
-
-    border-style: dashed;
-
     background:
-        rgba(246,240,236,.38);
+        rgba(245,239,234,.4);
 
-    cursor: default;
+    border-style:
+        dashed;
+
+    cursor:
+        default;
 }
 
 
-/* ---------- Date header ---------- */
+/* =========================================================
+   DATE HEADER
+   ========================================================= */
 
 .date-header {
-    min-height: 28px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    height: 27px;
 
     padding: 0 7px;
 
-    border-bottom:
-        1px solid var(--line);
+    display: flex;
 
-    color: var(--text);
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    border-bottom:
+        1px solid var(--border);
 
     font-size: 9px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .today-label {
-    color: var(--mint-deep);
+    color:
+        var(--mint-dark);
 
     font-size: 6px;
 
@@ -635,7 +535,7 @@ textarea {
 
 
 /* =========================================================
-   CALENDAR TASKS
+   DESKTOP TASKS
    ========================================================= */
 
 .day-tasks {
@@ -644,19 +544,22 @@ textarea {
     padding:
         4px 6px;
 
-    overflow: hidden;
+    overflow:
+        hidden;
 }
 
 .task-row {
-    min-height: 22px;
+    min-height: 21px;
 
     display: flex;
-    align-items: center;
+
+    align-items:
+        center;
 
     gap: 5px;
 
     border-bottom:
-        1px dashed #f0e6e1;
+        1px dashed #f0e6e0;
 }
 
 .task-check {
@@ -665,95 +568,86 @@ textarea {
     width: 11px;
     height: 11px;
 
-    flex: 0 0 11px;
+    min-width: 11px;
 
     border:
-        1px solid #cbbab1;
+        1px solid #cdbcb4;
 
-    border-radius: 3px;
+    border-radius:
+        3px;
 
-    background: white;
-
-    cursor: pointer;
+    background:
+        white;
 }
 
 .task-check:checked {
-    border-color:
-        var(--mint-deep);
-
     background:
-        var(--mint-deep);
+        var(--mint-dark);
+
+    border-color:
+        var(--mint-dark);
 }
 
 .task-check:checked::after {
     content: "✓";
 
-    display: block;
+    color:
+        white;
 
-    color: white;
+    display:
+        block;
 
-    font-size: 7px;
+    text-align:
+        center;
 
-    line-height: 9px;
-
-    text-align: center;
+    font-size:
+        7px;
 }
 
 .task-input {
     width: 100%;
     min-width: 0;
 
-    padding: 2px 0;
-
     border: 0;
+    outline: 0;
 
-    background: transparent;
+    background:
+        transparent;
 
-    color: var(--text);
+    color:
+        var(--text);
 
-    font-size: 8px;
+    font-size:
+        8px;
 }
 
-.task-input::placeholder {
-    color: #c5b6af;
-}
-
-.task-row.completed .task-input {
-    color: var(--text-faint);
-
+.task-row.completed
+.task-input {
     text-decoration:
         line-through;
+
+    color:
+        #b6aaa4;
 }
-
-
-/* ---------- Add task ---------- */
 
 .add-task {
-    align-self: flex-start;
-
-    padding: 3px 0;
-
     border: 0;
 
-    background: transparent;
+    background:
+        transparent;
 
-    color: var(--pink-deep);
+    color:
+        var(--pink-dark);
 
-    font-size: 8px;
+    padding:
+        4px 0;
+
+    font-size:
+        8px;
 }
-
-.add-task:hover {
-    color: var(--pink-deep);
-
-    text-decoration:
-        underline;
-}
-
-
-/* ---------- Day progress ---------- */
 
 .day-progress {
-    height: 7px;
+    height: 6px;
 
     padding:
         0 5px;
@@ -762,9 +656,8 @@ textarea {
 .day-progress-bar {
     height: 3px;
 
-    overflow: hidden;
-
-    border-radius: 10px;
+    border-radius:
+        10px;
 
     background:
         #eee5df;
@@ -773,7 +666,8 @@ textarea {
 .day-progress-fill {
     height: 100%;
 
-    border-radius: inherit;
+    border-radius:
+        10px;
 
     background:
         var(--mint);
@@ -781,71 +675,63 @@ textarea {
 
 
 /* =========================================================
-   RIGHT COLUMN LISTS
+   SIDE LISTS
    ========================================================= */
 
 .list-header {
     min-height: 40px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding:
+        0 12px;
 
-    padding: 0 12px;
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
 
     border-bottom:
-        1px solid var(--line);
+        1px solid var(--border);
 
-    color: var(--text-soft);
+    font-size:
+        9px;
 
-    font-size: 8px;
-    font-weight: 700;
+    font-weight:
+        700;
 
-    letter-spacing: 1.3px;
+    letter-spacing:
+        1.3px;
 }
 
-.list-header.pink {
+.pink {
     background:
-        var(--pink-soft);
+        var(--pink-light);
 }
 
-.list-header.mint {
+.mint {
     background:
-        var(--mint-soft);
+        var(--mint-light);
 }
 
-.list-header.yellow {
+.yellow {
     background:
-        var(--yellow-soft);
+        var(--yellow-light);
 }
 
 .add-list {
     width: 22px;
     height: 22px;
 
-    display: grid;
-    place-items: center;
-
     border: 0;
-    border-radius: 7px;
+
+    border-radius:
+        7px;
 
     background:
         rgba(255,255,255,.75);
-
-    color: var(--text-soft);
-
-    font-size: 15px;
-
-    transition:
-        transform .15s ease,
-        background .15s ease;
-}
-
-.add-list:hover {
-    transform: scale(1.05);
-
-    background:
-        white;
 }
 
 .list {
@@ -854,55 +740,60 @@ textarea {
 }
 
 .list-item {
-    min-height: 29px;
+    min-height:
+        29px;
 
-    display: flex;
-    align-items: center;
+    display:
+        flex;
 
-    gap: 7px;
+    align-items:
+        center;
+
+    gap:
+        7px;
 
     border-bottom:
-        1px dashed #eee4df;
-}
-
-.list-item:last-child {
-    border-bottom: 0;
+        1px dashed #eee3dc;
 }
 
 .list-check {
-    width: 12px;
-    height: 12px;
+    width:
+        11px;
 
-    flex: 0 0 12px;
-
-    accent-color:
-        var(--pink-deep);
-
-    cursor: pointer;
+    height:
+        11px;
 }
 
 .list-input {
-    width: 100%;
-    min-width: 0;
+    width:
+        100%;
 
-    border: 0;
+    min-width:
+        0;
 
-    background: transparent;
+    border:
+        0;
 
-    color: var(--text);
+    outline:
+        0;
 
-    font-size: 8px;
+    background:
+        transparent;
+
+    color:
+        var(--text);
+
+    font-size:
+        8px;
 }
 
-.list-input::placeholder {
-    color: #c5b6af;
-}
-
-.list-item.completed .list-input {
-    color: var(--text-faint);
-
+.list-item.completed
+.list-input {
     text-decoration:
         line-through;
+
+    color:
+        #b6aaa4;
 }
 
 
@@ -911,16 +802,8 @@ textarea {
    ========================================================= */
 
 .mobile-view {
-    display: none;
-}
-
-
-/* =========================================================
-   MOBILE MENU BUTTON
-   ========================================================= */
-
-.mobile-menu-button {
-    display: none;
+    display:
+        none;
 }
 
 
@@ -929,55 +812,60 @@ textarea {
    ========================================================= */
 
 .drawer-overlay {
-    position: fixed;
+    display:
+        none;
 
-    inset: 0;
+    position:
+        fixed;
 
-    z-index: 100;
-
-    display: none;
+    inset:
+        0;
 
     background:
-        rgba(70,55,50,.25);
+        rgba(70,55,50,.28);
 
-    backdrop-filter:
-        blur(2px);
+    z-index:
+        50;
 }
 
 .drawer-overlay.open {
-    display: block;
+    display:
+        block;
 }
 
 .drawer {
-    position: fixed;
+    position:
+        fixed;
 
-    top: 0;
-    left: 0;
-    bottom: 0;
+    top:
+        0;
 
-    z-index: 110;
+    left:
+        0;
 
-    width: min(
-        340px,
-        88vw
-    );
+    bottom:
+        0;
 
-    overflow-y: auto;
-
-    padding: 18px;
+    width:
+        min(330px, 88vw);
 
     background:
         var(--cream);
 
-    box-shadow:
-        12px 0 35px
-        rgba(70,55,50,.12);
+    z-index:
+        60;
 
     transform:
         translateX(-105%);
 
     transition:
         transform .25s ease;
+
+    overflow-y:
+        auto;
+
+    padding:
+        18px;
 }
 
 .drawer.open {
@@ -986,33 +874,43 @@ textarea {
 }
 
 .drawer-header {
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
-    margin-bottom: 16px;
+    align-items:
+        center;
+
+    margin-bottom:
+        18px;
 }
 
 .drawer-header h2 {
-    margin: 0;
+    margin:
+        0;
 
     font-family:
         Georgia,
         serif;
 
-    font-size: 25px;
+    font-size:
+        24px;
 }
 
 .close-drawer {
-    width: 34px;
-    height: 34px;
+    width:
+        34px;
+
+    height:
+        34px;
 
     border:
-        1px solid var(--line);
+        1px solid var(--border);
 
     border-radius:
-        var(--radius-sm);
+        10px;
 
     background:
         white;
@@ -1020,25 +918,25 @@ textarea {
     color:
         var(--text);
 
-    font-size: 20px;
+    font-size:
+        20px;
 }
 
 .drawer-month {
-    margin-bottom: 13px;
+    margin-bottom:
+        15px;
 
-    padding: 11px;
+    padding:
+        12px;
+
+    background:
+        var(--mint-light);
 
     border:
-        1px solid var(--line);
+        1px solid var(--border);
 
     border-radius:
         14px;
-
-    background:
-        var(--mint-soft);
-
-    color:
-        var(--mint-deep);
 
     text-align:
         center;
@@ -1046,44 +944,52 @@ textarea {
     font-family:
         Georgia,
         serif;
-
-    font-size: 14px;
 }
 
 .drawer-section {
-    margin-bottom: 11px;
+    margin-bottom:
+        12px;
 
-    overflow: hidden;
+    background:
+        var(--white);
 
     border:
-        1px solid var(--line);
+        1px solid var(--border);
 
     border-radius:
         15px;
 
-    background:
-        var(--white);
+    overflow:
+        hidden;
 }
 
 .drawer-section-title {
-    min-height: 40px;
+    min-height:
+        40px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding:
+        0 12px;
 
-    padding: 0 12px;
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
 
     border-bottom:
-        1px solid var(--line);
+        1px solid var(--border);
 
-    color:
-        var(--text-soft);
+    font-size:
+        9px;
 
-    font-size: 8px;
-    font-weight: 700;
+    font-weight:
+        700;
 
-    letter-spacing: 1px;
+    letter-spacing:
+        1px;
 }
 
 .drawer-list {
@@ -1093,137 +999,157 @@ textarea {
 
 
 /* =========================================================
-   FOOTER
-   ========================================================= */
-
-footer {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    padding:
-        18px 2px 4px;
-
-    color:
-        var(--text-faint);
-
-    font-size: 7px;
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 1120px) {
-
-    .desktop-layout {
-        grid-template-columns:
-            170px
-            minmax(500px, 1fr);
-    }
-
-    .right-column {
-        grid-column:
-            1 / -1;
-
-        display: grid;
-
-        grid-template-columns:
-            repeat(4, 1fr);
-    }
-}
-
-
-/* =========================================================
    MOBILE
    ========================================================= */
 
 @media (max-width: 768px) {
 
+    html,
     body {
-        min-height: 100dvh;
+        width:
+            100%;
+
+        max-width:
+            100%;
+
+        overflow-x:
+            hidden;
+    }
+
+    body {
+        min-height:
+            100dvh;
     }
 
     .app {
-        width: 100%;
+        width:
+            100%;
 
-        min-height: 100dvh;
+        max-width:
+            100%;
+
+        min-height:
+            100dvh;
 
         padding:
             12px;
+
+        overflow-x:
+            hidden;
     }
 
 
-    /* Hide desktop calendar */
+    /* -----------------------------------------
+       IMPORTANT:
+       Hide desktop month navigation completely
+       ----------------------------------------- */
 
-    .desktop-layout {
-        display: none;
+    .month-navigation {
+        display:
+            none !important;
     }
 
 
-    /* Mobile page */
-
-    .mobile-view {
-        display: block;
-    }
-
-
-    /* Header */
+    /* -----------------------------------------
+       HEADER
+       ----------------------------------------- */
 
     .header {
-        margin-bottom:
-            13px;
+        width:
+            100%;
 
-        gap: 10px;
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            space-between;
+
+        gap:
+            10px;
+
+        margin-bottom:
+            12px;
     }
 
     .brand {
-        min-width: 0;
-    }
+        width:
+            auto !important;
 
-    .logo {
-        width: 42px;
-        height: 42px;
+        min-width:
+            0;
 
-        border-radius:
-            14px;
-
-        font-size:
-            25px;
+        flex:
+            1;
     }
 
     .brand h1 {
         font-size:
             26px;
+
+        white-space:
+            nowrap;
     }
 
     .brand p {
+        max-width:
+            180px;
+
         font-size:
-            8px;
+            9px;
+
+        line-height:
+            1.45;
+    }
+
+    .logo {
+        width:
+            42px;
+
+        height:
+            42px;
+
+        flex:
+            0 0 42px;
+
+        border-radius:
+            14px;
+
+        font-size:
+            26px;
     }
 
 
-    /* Hamburger */
+    /* -----------------------------------------
+       MOBILE MENU
+       ----------------------------------------- */
 
     .mobile-menu-button {
-        width: 40px;
-        height: 40px;
+        display:
+            grid !important;
 
-        display: grid;
-        place-items: center;
+        place-items:
+            center;
 
-        flex: 0 0 40px;
+        width:
+            40px;
+
+        height:
+            40px;
+
+        flex:
+            0 0 40px;
 
         border:
-            1px solid var(--line);
+            1px solid var(--border);
 
         border-radius:
             12px;
 
         background:
-            rgba(255,255,255,.85);
+            var(--white);
 
         color:
             var(--text);
@@ -1233,33 +1159,74 @@ footer {
     }
 
 
-    /* Day navigation */
+    /* -----------------------------------------
+       Hide desktop content
+       ----------------------------------------- */
+
+    .desktop-layout {
+        display:
+            none !important;
+    }
+
+
+    /* -----------------------------------------
+       Show mobile content
+       ----------------------------------------- */
+
+    .mobile-view {
+        display:
+            block !important;
+
+        width:
+            100%;
+
+        max-width:
+            100%;
+    }
+
+
+    /* -----------------------------------------
+       MOBILE DAY NAVIGATION
+       ----------------------------------------- */
 
     .mobile-day-navigation {
-        display: flex;
+        width:
+            100%;
 
-        align-items: center;
+        max-width:
+            100%;
 
-        gap: 7px;
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        gap:
+            7px;
 
         margin-bottom:
             7px;
     }
 
     .mobile-day-navigation button {
-        width: 38px;
-        height: 38px;
+        width:
+            38px;
 
-        flex: 0 0 38px;
+        height:
+            38px;
+
+        flex:
+            0 0 38px;
 
         border:
-            1px solid var(--line);
+            1px solid var(--border);
 
         border-radius:
             12px;
 
         background:
-            white;
+            var(--white);
 
         color:
             var(--text);
@@ -1269,16 +1236,22 @@ footer {
     }
 
     .mobile-date {
-        flex: 1;
+        flex:
+            1;
 
-        min-width: 0;
+        min-width:
+            0;
+
+        overflow:
+            hidden;
 
         text-align:
             center;
     }
 
     .mobile-date h2 {
-        margin: 0;
+        margin:
+            0;
 
         font-family:
             Georgia,
@@ -1287,18 +1260,19 @@ footer {
         font-size:
             21px;
 
-        font-weight:
-            600;
+        white-space:
+            nowrap;
     }
 
     .mobile-date span {
-        display: block;
+        display:
+            block;
 
         margin-top:
             2px;
 
         color:
-            var(--text-faint);
+            var(--muted);
 
         font-size:
             8px;
@@ -1311,28 +1285,31 @@ footer {
     }
 
 
-    /* Today badge */
+    /* -----------------------------------------
+       TODAY
+       ----------------------------------------- */
 
     .mobile-today {
-        display: block;
+        display:
+            block;
 
         margin:
             0 auto 10px;
 
         padding:
-            6px 11px;
+            7px 12px;
 
         border:
             0;
 
         border-radius:
-            9px;
+            10px;
 
         background:
-            var(--mint-soft);
+            var(--mint-light);
 
         color:
-            var(--mint-deep);
+            var(--mint-dark);
 
         font-size:
             8px;
@@ -1345,55 +1322,62 @@ footer {
     }
 
 
-    /* Date selector */
+    /* -----------------------------------------
+       DATE PICKER
+       ----------------------------------------- */
 
     .choose-date {
-        width: 100%;
-        height: 42px;
+        display:
+            block;
+
+        width:
+            100%;
+
+        max-width:
+            100%;
+
+        height:
+            48px;
 
         margin-bottom:
             12px;
 
         border:
-            1px solid var(--line);
+            1px solid var(--border);
 
         border-radius:
-            13px;
+            15px;
 
         background:
-            rgba(255,255,255,.82);
+            var(--white);
 
         color:
             var(--text);
 
         font-size:
-            10px;
-
-        transition:
-            background .15s ease,
-            border-color .15s ease;
-    }
-
-    .choose-date:active {
-        background:
-            var(--pink-soft);
-
-        border-color:
-            var(--pink);
+            11px;
     }
 
 
-    /* Main day card */
+    /* -----------------------------------------
+       MOBILE DAY CARD
+       ----------------------------------------- */
 
     .mobile-day-card {
+        width:
+            100%;
+
+        max-width:
+            100%;
+
         overflow:
             hidden;
 
         border:
-            1px solid var(--line);
+            1px solid var(--border);
 
         border-radius:
-            20px;
+            22px;
 
         background:
             var(--white);
@@ -1401,7 +1385,6 @@ footer {
         box-shadow:
             var(--shadow);
     }
-
 
     .mobile-day-header {
         min-height:
@@ -1416,30 +1399,28 @@ footer {
         justify-content:
             space-between;
 
+        gap:
+            10px;
+
         padding:
             14px 15px;
 
         border-bottom:
-            1px solid var(--line);
+            1px solid var(--border);
 
         background:
-            linear-gradient(
-                135deg,
-                var(--pink-soft),
-                #fff7f8
-            );
+            var(--pink-light);
     }
-
 
     .mobile-day-header small {
         display:
             block;
 
         margin-bottom:
-            4px;
+            5px;
 
         color:
-            var(--text-faint);
+            var(--muted);
 
         font-size:
             7px;
@@ -1451,28 +1432,32 @@ footer {
             1.5px;
     }
 
-
     .mobile-day-header h3 {
-        margin: 0;
+        margin:
+            0;
 
         font-family:
             Georgia,
             serif;
 
         font-size:
-            19px;
-
-        font-weight:
-            600;
+            21px;
     }
 
 
+    /* -----------------------------------------
+       MOBILE PROGRESS CIRCLE
+       ----------------------------------------- */
+
     .mobile-day-progress {
         width:
-            48px;
+            50px;
 
         height:
-            48px;
+            50px;
+
+        flex:
+            0 0 50px;
 
         display:
             grid;
@@ -1485,19 +1470,18 @@ footer {
 
         background:
             conic-gradient(
-                var(--mint-deep)
+                var(--mint-dark)
                 var(--mobile-progress, 0%),
                 #e9eee9 0
             );
     }
 
-
     .mobile-day-progress strong {
         width:
-            38px;
+            40px;
 
         height:
-            38px;
+            40px;
 
         display:
             grid;
@@ -1512,24 +1496,34 @@ footer {
             white;
 
         color:
-            var(--mint-deep);
+            var(--mint-dark);
 
         font-size:
-            10px;
+            11px;
     }
 
 
-    /* Mobile tasks */
+    /* -----------------------------------------
+       MOBILE TASKS
+       ----------------------------------------- */
 
     .mobile-tasks {
+        width:
+            100%;
+
         padding:
             5px 15px;
     }
 
-
     .mobile-task {
+        width:
+            100%;
+
+        min-width:
+            0;
+
         min-height:
-            48px;
+            53px;
 
         display:
             flex;
@@ -1538,36 +1532,33 @@ footer {
             center;
 
         gap:
-            10px;
+            11px;
 
         border-bottom:
-            1px dashed var(--line);
+            1px dashed var(--border);
     }
-
 
     .mobile-task:last-child {
         border-bottom:
             0;
     }
 
-
     .mobile-task input[type="checkbox"] {
         width:
-            18px;
+            19px;
 
         height:
-            18px;
+            19px;
 
         flex:
-            0 0 18px;
+            0 0 19px;
 
         margin:
             0;
 
         accent-color:
-            var(--mint-deep);
+            var(--mint-dark);
     }
-
 
     .mobile-task input[type="text"] {
         width:
@@ -1575,6 +1566,9 @@ footer {
 
         min-width:
             0;
+
+        max-width:
+            100%;
 
         border:
             0;
@@ -1592,40 +1586,40 @@ footer {
             12px;
     }
 
-
     .mobile-task input[type="text"]::placeholder {
         color:
-            #c5b6af;
+            #b9b0ac;
     }
-
 
     .mobile-task.completed
     input[type="text"] {
         color:
-            var(--text-faint);
+            var(--muted);
 
         text-decoration:
             line-through;
     }
 
 
-    /* Add task */
+    /* -----------------------------------------
+       ADD TASK
+       ----------------------------------------- */
 
     .mobile-add-task {
         width:
             100%;
 
         height:
-            46px;
+            48px;
 
         border:
             0;
 
         background:
-            var(--mint-soft);
+            var(--mint-light);
 
         color:
-            var(--mint-deep);
+            var(--mint-dark);
 
         font-size:
             10px;
@@ -1635,17 +1629,13 @@ footer {
     }
 
 
-    .mobile-add-task:active {
-        background:
-            var(--mint);
-    }
-
-
-    /* Progress */
+    /* -----------------------------------------
+       PROGRESS BAR
+       ----------------------------------------- */
 
     .mobile-progress-bar {
         height:
-            4px;
+            5px;
 
         margin:
             0 15px 15px;
@@ -1657,9 +1647,8 @@ footer {
             10px;
 
         background:
-            #eee6e0;
+            #eee5df;
     }
-
 
     .mobile-progress-fill {
         width:
@@ -1683,9 +1672,17 @@ footer {
     }
 
 
-    /* Footer */
+    /* -----------------------------------------
+       FOOTER
+       ----------------------------------------- */
 
     footer {
+        width:
+            100%;
+
+        display:
+            flex;
+
         flex-direction:
             column;
 
@@ -1696,19 +1693,22 @@ footer {
             5px;
 
         padding:
-            18px 0 5px;
+            18px 5px 5px;
 
         text-align:
             center;
 
+        color:
+            var(--muted);
+
         font-size:
-            7px;
+            8px;
     }
 }
 
 
 /* =========================================================
-   SMALL PHONE
+   SMALL PHONES
    ========================================================= */
 
 @media (max-width: 390px) {
@@ -1724,8 +1724,11 @@ footer {
     }
 
     .brand p {
+        max-width:
+            155px;
+
         font-size:
-            7px;
+            8px;
     }
 
     .mobile-day-navigation button {
@@ -1735,8 +1738,8 @@ footer {
         height:
             35px;
 
-        flex-basis:
-            35px;
+        flex:
+            0 0 35px;
     }
 
     .mobile-date h2 {
@@ -1746,12 +1749,12 @@ footer {
 
     .mobile-day-header h3 {
         font-size:
-            18px;
+            19px;
     }
 
     .mobile-task {
         min-height:
-            45px;
+            49px;
     }
 
     .mobile-task input[type="text"] {
@@ -1762,18 +1765,20 @@ footer {
 
 
 /* =========================================================
-   DESKTOP ONLY
+   PREVENT HORIZONTAL OVERFLOW EVERYWHERE
    ========================================================= */
 
-@media (min-width: 769px) {
+img,
+video,
+iframe,
+canvas {
+    max-width:
+        100%;
+}
 
-    .mobile-view {
-        display:
-            none;
-    }
-
-    .mobile-menu-button {
-        display:
-            none;
-    }
+input,
+textarea,
+button {
+    max-width:
+        100%;
 }
