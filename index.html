@@ -621,12 +621,7 @@ button{cursor:pointer}
         overflow-x:hidden;
     }
 
-    brand p{
-        max-width:none;
-        font-size:9px;
-    }
-
-     .greeting{
+    .greeting{
         max-width:100%;
         width:100%;
         line-height:1.5;
@@ -695,7 +690,14 @@ button{cursor:pointer}
         grid-column:1;
         grid-row:1;
 
+        width:100%;
         min-width:0;
+        justify-self:stretch;
+
+        display:flex;
+        flex-direction:column;
+        align-items:flex-end;
+
         text-align:right;
     }
 
@@ -721,9 +723,18 @@ button{cursor:pointer}
     }
 
     .brand p{
-        margin:4px 0 0;
+        width:auto;
         max-width:100%;
+        margin:4px 0 0;
         font-size:9px;
+        text-align:right;
+        align-self:flex-end;
+    }
+
+    .brand > div:first-child > p:not(.greeting){
+        width:max-content;
+        max-width:100%;
+        white-space:nowrap;
     }
 
     .brand .greeting{
@@ -974,8 +985,18 @@ button{cursor:pointer}
     .brand h1{font-size:24px}
 
     .brand p{
-        max-width:155px;
+        width:auto;
+        max-width:100%;
+        margin:4px 0 0;
         font-size:8px;
+        text-align:right;
+        align-self:flex-end;
+    }
+
+    .brand > div:first-child > p:not(.greeting){
+        width:max-content;
+        max-width:100%;
+        white-space:nowrap;
     }
 
     .mobile-day-navigation button{
