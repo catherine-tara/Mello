@@ -309,6 +309,25 @@ button{cursor:pointer}
     border-bottom:1px dashed #f0e6e0;
 }
 
+.task-delete{
+    width:16px;
+    height:16px;
+    flex:0 0 16px;
+    margin-left:auto;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    font-size:11px;
+    line-height:16px;
+    opacity:.55;
+}
+
+.task-delete:hover{
+    color:var(--pink-dark);
+    opacity:1;
+}
+
 .task-check{
     appearance:none;
     width:11px;
@@ -621,11 +640,6 @@ button{cursor:pointer}
         overflow-x:hidden;
     }
 
-    brand p{
-        max-width:none;
-        font-size:9px;
-    }
-
      .greeting{
         max-width:100%;
         width:100%;
@@ -718,6 +732,12 @@ button{cursor:pointer}
         margin:0;
         font-size:26px;
         white-space:nowrap;
+    }
+
+    .brand > div:first-child > p:not(.greeting){
+        width:100%;
+        margin:4px 0 0;
+        text-align:right;
     }
 
     .brand p{
@@ -903,6 +923,25 @@ button{cursor:pointer}
         border-bottom:1px dashed var(--border);
     }
 
+    .mobile-task-delete{
+        width:22px;
+        height:22px;
+        flex:0 0 22px;
+        margin-left:auto;
+        padding:0;
+        border:0;
+        background:transparent;
+        color:var(--muted);
+        font-size:13px;
+        line-height:22px;
+        opacity:.6;
+    }
+
+    .mobile-task-delete:active{
+        color:var(--pink-dark);
+        opacity:1;
+    }
+
     .mobile-task:last-child{border-bottom:0}
 
     .mobile-task input[type="checkbox"]{
@@ -974,8 +1013,16 @@ button{cursor:pointer}
     .brand h1{font-size:24px}
 
     .brand p{
-        max-width:155px;
+        max-width:100%;
         font-size:8px;
+        text-align:right;
+    }
+
+    .brand > div:first-child > p:not(.greeting){
+        width:100%;
+        max-width:100%;
+        margin:4px 0 0;
+        text-align:right;
     }
 
     .mobile-day-navigation button{
@@ -2011,6 +2058,32 @@ function renderCalendar(){
             input.placeholder="task...";
 
 
+            const deleteButton =
+                document.createElement("button");
+
+            deleteButton.type="button";
+            deleteButton.className="task-delete";
+            deleteButton.textContent="×";
+            deleteButton.setAttribute(
+                "aria-label",
+                "Delete task"
+            );
+
+
+            deleteButton.addEventListener(
+                "click",
+                event=>{
+
+                    event.stopPropagation();
+
+                    tasks.splice(index,1);
+
+                    saveData();
+                    renderAll();
+                }
+            );
+
+
             checkbox.addEventListener(
                 "change",
                 event=>{
@@ -2048,7 +2121,8 @@ function renderCalendar(){
 
             row.append(
                 checkbox,
-                input
+                input,
+                deleteButton
             );
 
             taskArea.appendChild(row);
@@ -2219,6 +2293,32 @@ function renderMobile(){
         input.placeholder="Add a task...";
 
 
+        const deleteButton =
+            document.createElement("button");
+
+        deleteButton.type="button";
+        deleteButton.className="mobile-task-delete";
+        deleteButton.textContent="×";
+        deleteButton.setAttribute(
+            "aria-label",
+            "Delete task"
+        );
+
+
+        deleteButton.addEventListener(
+            "click",
+            event=>{
+
+                event.stopPropagation();
+
+                tasks.splice(index,1);
+
+                saveData();
+                renderAll();
+            }
+        );
+
+
         checkbox.addEventListener(
             "change",
             ()=>{
@@ -2245,7 +2345,8 @@ function renderMobile(){
 
         row.append(
             checkbox,
-            input
+            input,
+            deleteButton
         );
 
         container.appendChild(row);
